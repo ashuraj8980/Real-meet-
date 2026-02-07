@@ -3,280 +3,307 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RealMeet | Premium Connection</title>
+    <title>RealMeet | Premium Connection Agency</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
         
-        :root { --gold: #d4af37; }
-        body { font-family: 'Outfit', sans-serif; background: radial-gradient(circle at top, #2d2a5d 0%, #0f172a 100%); color: #f1f5f9; min-height: 100vh; margin: 0; overflow-x: hidden; }
+        :root { --primary: #6366f1; --gold: #fbbf24; --success-green: #22c55e; }
 
-        .marquee-container { background: var(--gold); color: #000; padding: 8px 0; font-weight: 800; font-size: 11px; text-transform: uppercase; overflow: hidden; white-space: nowrap; border-bottom: 2px solid rgba(0,0,0,0.1); }
-        .marquee-text { display: inline-block; animation: marquee 25s linear infinite; padding-left: 100%; }
-        @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: radial-gradient(circle at center, #ffffff 0%, #e0e7ff 35%, #1e1b4b 100%); 
+            color: #1e293b; min-height: 100vh; margin: 0; overflow-x: hidden;
+        }
 
-        .search-mini { width: 100px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .search-mini:focus { width: 150px; border-color: var(--gold); box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
+        /* Unique Midnight Luxury Header */
+        header { 
+            background: radial-gradient(circle at top right, #4338ca, #1e1b4b); 
+            border-bottom: 2px solid var(--gold);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
 
-        .luxury-card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 20px; overflow: hidden; transition: 0.3s; }
-        .luxury-card:hover { transform: translateY(-5px); border-color: var(--gold); }
-        .img-box { height: 200px; width: 100%; background: #000; }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+        #loader {
+            position: fixed; inset: 0; background: rgba(255,255,255,0.9); 
+            z-index: 100000; display: none; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .spinner { width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        .btn-gold { background: linear-gradient(to right, #d4af37, #f59e0b); color: #000; font-weight: 900; border-radius: 15px; cursor: pointer; transition: 0.2s; }
+        .tg-float {
+            position: fixed; right: 20px; bottom: 30px;
+            background: #0088cc; color: white; width: 50px; height: 50px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 9999;
+        }
+
+        /* Popups styling */
+        .notif-popup { 
+            position: fixed; left: -320px; bottom: 80px; background: white; 
+            border-left: 5px solid var(--primary); padding: 12px; border-radius: 12px; 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2); transition: 0.5s; z-index: 9998; width: 260px; 
+            display: flex; align-items: center; gap: 10px; font-size: 12px;
+        }
+        .notif-popup.active { left: 15px; }
+
+        footer { background: #000; color: var(--gold); border-top: 5px solid var(--gold); padding: 50px 20px; text-align: center; }
+
+        .luxury-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow: hidden; }
         
-        .review-container { overflow: hidden; width: 100%; position: relative; padding: 20px 0; }
-        .review-track { display: flex; gap: 20px; width: max-content; animation: scroll-reviews 35s linear infinite; }
+        .review-track { display: flex; gap: 20px; width: max-content; animation: scroll-reviews 45s linear infinite; }
         @keyframes scroll-reviews { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        #age-gate { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.98); backdrop-filter: blur(20px); z-index: 99999; display: flex; align-items: center; justify-content: center; }
-        #loader { position: fixed; inset: 0; z-index: 100000; background: #0f172a; display: none; align-items: center; justify-content: center; }
-
-        .notif-popup { position: fixed; left: -350px; bottom: 80px; background: rgba(15, 23, 42, 0.95); border: 1px solid rgba(212, 175, 55, 0.3); border-left: 4px solid var(--gold); padding: 10px 15px; border-radius: 0 20px 20px 0; box-shadow: 0 15px 35px rgba(0,0,0,0.5); transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 9999; width: 280px; display: flex; align-items: center; gap: 12px; backdrop-filter: blur(10px); }
-        .notif-popup.active { left: 0; }
-        .notif-img { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; }
-
-        .dot { height: 8px; width: 8px; background-color: #22c55e; border-radius: 50%; display: inline-block; margin-right: 5px; animation: blink 1.5s infinite; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
-
-        .float-tg { position: fixed; bottom: 20px; right: 20px; z-index: 9998; background: #0088cc; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; box-shadow: 0 4px 15px rgba(0,136,204,0.4); }
+        #age-gate { position: fixed; inset: 0; background: #f8fafc; z-index: 99999; display: flex; align-items: center; justify-content: center; }
+        
+        .instr-box { border: 2px solid #e2e8f0; padding: 15px; border-radius: 15px; background: #fff; margin-bottom: 12px; border-left: 5px solid var(--primary); }
     </style>
 </head>
-<body>
+<body onload="init()">
 
-    <a href="https://t.me/Xnehhaa" target="_blank" class="float-tg"><i class="fab fa-telegram-plane"></i></a>
+    <div id="loader"><div class="spinner"></div><p class="mt-2 font-bold text-indigo-600 uppercase text-[10px]">Processing Connection...</p></div>
 
     <div id="notif" class="notif-popup">
-        <img id="notif-pic" src="" class="notif-img">
-        <div>
-            <p id="notif-name" class="text-amber-500 font-black text-[10px] uppercase leading-tight"></p>
-            <p id="notif-msg" class="text-white text-[11px] italic font-medium"></p>
-        </div>
+        <img id="notif-img" src="" class="w-10 h-10 rounded-full object-cover border-2 border-indigo-100">
+        <div><p id="notif-title" class="font-black text-indigo-900"></p><p id="notif-body" class="text-slate-500 font-medium"></p></div>
     </div>
+
+    <a href="https://t.me/Xnehhaa" class="tg-float"><i class="fab fa-telegram-plane"></i></a>
 
     <div id="age-gate">
-        <div class="bg-[#1e293b] border-2 border-[#d4af37] p-10 text-center max-w-[350px] w-[90%] rounded-[40px]">
-            <i class="fas fa-lock text-4xl text-amber-500 mb-6"></i>
-            <h2 class="text-2xl font-black text-white mb-2 uppercase italic">Private Entry</h2>
-            <p class="text-slate-400 text-[10px] font-bold mb-8 tracking-widest">YOU MUST BE 18 OR OLDER TO ACCESS THESE PROFILES.</p>
-            <button onclick="unlockSite()" class="btn-gold w-full py-4 uppercase text-sm mb-4">Enter Now</button>
-            <button onclick="window.location.href='https://google.com'" class="text-slate-500 text-[10px] font-bold uppercase">Exit Site</button>
+        <div class="text-center p-10 max-w-sm w-full border-4 border-indigo-600 rounded-[40px] bg-white shadow-2xl">
+            <h2 class="text-3xl font-black mb-6 text-indigo-900">MEMBER ACCESS</h2>
+            <div class="flex flex-col items-start gap-4 mb-10 text-left">
+                <label class="flex items-center gap-3 font-bold text-slate-700 cursor-pointer">
+                    <input type="checkbox" id="check1" class="w-5 h-5 accent-indigo-600"> I confirm that I am 18+ years old.
+                </label>
+                <label class="flex items-center gap-3 font-bold text-slate-700 cursor-pointer">
+                    <input type="checkbox" id="check2" class="w-5 h-5 accent-indigo-600"> I agree to the discrete meet terms.
+                </label>
+            </div>
+            <button onclick="validateAge()" class="w-full bg-indigo-600 text-white font-black py-4 rounded-2xl shadow-lg hover:bg-indigo-700 transition-all">ENTER SITE</button>
         </div>
     </div>
 
-    <div id="loader"><div class="w-10 h-10 border-4 border-amber-500/20 border-t-amber-500 rounded-full animate-spin"></div></div>
-
-    <div class="marquee-container">
-        <div class="marquee-text">
-            100% Real Meet in your location • Safe and Secure Connection • Verified VIP Girls • Guaranteed Satisfaction • Fast WhatsApp Redirect • 24/7 Premium Support • No Fake Profiles • Safe and Secure in your location • 
-        </div>
-    </div>
-
-    <header class="p-4 flex justify-between items-center border-b border-white/5 sticky top-0 z-50 bg-[#1e1b4b]/95 backdrop-blur-md">
-        <div>
-            <h1 class="text-2xl font-black italic text-white tracking-tighter">REAL<span class="text-amber-500">MEET</span></h1>
-            <p class="text-[8px] font-bold text-indigo-300 uppercase tracking-[0.2em]">Available now in your city</p>
-        </div>
-        <div class="flex items-center gap-2">
-            <input type="text" id="citySearch" oninput="filterProfiles()" placeholder="Search City..." class="search-mini bg-white/10 border border-white/10 rounded-lg py-1.5 px-3 text-[10px] font-bold outline-none text-white">
+    <header class="p-5 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-black italic text-white tracking-tighter">REAL <span class="text-yellow-400">MEET</span></h1>
+                <p class="text-[10px] font-black text-indigo-200 uppercase tracking-widest">AVAILABLE IN YOUR CITY</p>
+            </div>
+            <input type="text" id="citySearch" oninput="filterProfiles()" placeholder="Search your city..." class="rounded-full py-2 px-5 text-xs font-bold border-2 border-indigo-400/50 bg-white/10 text-white placeholder-indigo-200 outline-none w-40 backdrop-blur-md">
         </div>
     </header>
 
     <main id="pg-home" class="container mx-auto px-4 py-8 hidden">
-        <div id="grid-container" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4"></div>
+        <div id="grid-container" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-5"></div>
+        <div class="mt-20">
+            <h3 class="text-center font-black text-indigo-900 mb-8 uppercase tracking-widest text-sm">Verified Member Reviews</h3>
+            <div class="overflow-hidden p-2"><div class="review-track" id="review-slider"></div></div>
+        </div>
     </main>
 
-    <main id="pg-detail" class="container mx-auto px-4 py-6 hidden">
+    <main id="pg-detail" class="container mx-auto px-4 py-8 hidden">
         <div class="max-w-md mx-auto luxury-card">
-            <div class="relative h-96 bg-black">
+            <div class="relative h-[450px]">
                 <img id="det-img" src="" class="w-full h-full object-cover">
-                <button onclick="show('home')" class="absolute top-4 left-4 w-10 h-10 bg-black/50 rounded-full flex items-center justify-center border border-white/10"><i class="fas fa-arrow-left text-sm"></i></button>
+                <button onclick="showPage('home')" class="absolute top-4 left-4 w-11 h-11 bg-white rounded-full flex items-center justify-center shadow-2xl"><i class="fas fa-arrow-left text-indigo-600"></i></button>
             </div>
             <div class="p-8">
-                <div class="flex justify-between items-start mb-6">
-                    <div>
-                        <h2 id="det-name" class="text-3xl font-black text-white italic"></h2>
-                        <p id="det-loc" class="text-amber-500 font-bold text-[10px] uppercase tracking-widest mt-1"></p>
-                    </div>
-                    <div class="bg-amber-500/20 text-amber-500 px-3 py-1 rounded-lg font-black text-xs">★ <span id="det-rating"></span></div>
+                <h2 id="det-name" class="text-2xl font-black text-slate-900"></h2>
+                <p id="det-loc" class="text-indigo-600 font-extrabold text-xs mb-5 uppercase tracking-tighter"></p>
+                <div class="bg-indigo-50 p-5 rounded-2xl mb-8 border border-indigo-100">
+                    <p class="text-[11px] font-bold text-indigo-700 italic">"Verified profile with original photos. Available for private meetings. Safe and discrete service guaranteed."</p>
                 </div>
-                <p id="det-desc" class="text-xs text-slate-400 mb-8 italic leading-relaxed"></p>
-                <div class="bg-indigo-500/10 border border-indigo-500/20 p-6 rounded-2xl mb-8">
-                    <p class="text-[10px] font-black text-indigo-400 mb-4 uppercase tracking-widest">WhatsApp Direct Connect:</p>
-                    <div class="space-y-3 text-[11px] font-bold text-slate-300">
-                        <p><i class="fas fa-check-circle text-amber-500 mr-2"></i> Verified Real Profile</p>
-                        <p><i class="fas fa-map-marker-alt text-amber-500 mr-2"></i> Instant Meeting Location</p>
-                        <p><i class="fas fa-lock text-amber-500 mr-2"></i> 100% Secure & Discrete</p>
-                    </div>
+                <div class="bg-green-50 p-5 rounded-2xl mb-8 border-l-4 border-green-500">
+                    <p class="text-[10px] font-black text-green-700 uppercase mb-3">WhatsApp Connection Benefits:</p>
+                    <ul class="text-[11px] font-bold text-slate-600 space-y-2">
+                        <li><i class="fas fa-video text-green-500 mr-2"></i> Real-time Video Confirmation</li>
+                        <li><i class="fas fa-map-marker-alt text-red-500 mr-2"></i> Direct Location Access</li>
+                        <li><i class="fas fa-user-shield text-blue-500 mr-2"></i> 100% Privacy Protection</li>
+                    </ul>
                 </div>
-                <button onclick="show('checkout')" class="w-full btn-gold py-4 rounded-xl font-black uppercase text-xs">Meet on WhatsApp</button>
+                <button onclick="showPage('checkout')" class="w-full bg-green-500 text-white py-5 rounded-2xl font-black uppercase text-xs shadow-xl tracking-widest">Join WhatsApp for Real Meet</button>
             </div>
         </div>
     </main>
 
     <main id="pg-checkout" class="container mx-auto px-4 py-8 hidden">
-        <div class="max-w-sm mx-auto luxury-card p-10 text-center border-t-4 border-t-amber-500">
+        <div class="max-w-sm mx-auto luxury-card p-10 text-center border-t-8 border-indigo-600">
             <div id="step-auth">
-                <h3 class="text-xl font-black text-white mb-6 uppercase italic">Your Details</h3>
-                <div class="space-y-4">
-                    <input type="text" id="cust-name" placeholder="Enter Real Name" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl text-white outline-none font-bold text-sm focus:border-amber-500">
-                    <input type="tel" id="cust-phone" maxlength="10" placeholder="WhatsApp Number" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl text-white outline-none font-bold text-sm focus:border-amber-500">
-                    <button onclick="handleAuth()" class="w-full btn-gold py-4 rounded-xl font-black uppercase text-xs mt-2">Continue to Connect</button>
-                </div>
+                <h3 class="text-lg font-black mb-8 uppercase text-indigo-900 tracking-tight">Identity Verification</h3>
+                <input type="text" id="cust-name" placeholder="Enter Full Name" class="w-full bg-slate-50 p-4 rounded-2xl mb-4 font-bold border border-slate-200 focus:border-indigo-500 outline-none">
+                <input type="tel" id="cust-phone" maxlength="10" placeholder="WhatsApp Number" class="w-full bg-slate-50 p-4 rounded-2xl mb-8 font-bold border border-slate-200 focus:border-indigo-500 outline-none">
+                <button onclick="handleAuth()" class="w-full bg-indigo-600 text-white py-4 rounded-2xl font-black uppercase text-xs shadow-lg">Verify & Proceed</button>
             </div>
-            <div id="step-pay" class="hidden">
-                <div class="mb-6 p-4 bg-amber-500/10 rounded-2xl border border-amber-500/20">
-                    <h2 class="text-lg font-black text-white italic uppercase">Hi, <span id="display-name" class="text-amber-500"></span>!</h2>
-                    <p class="text-[10px] text-slate-300 font-bold mt-2 uppercase">Complete the payment to meet and talk on whatsapp instantly.</p>
+
+            <div id="step-pay" class="hidden text-left">
+                <h2 class="text-xl font-black mb-2 italic">Welcome, <span id="display-name" class="text-indigo-600"></span></h2>
+                <p class="text-[12px] font-bold text-slate-500 mb-8 bg-indigo-50 p-4 rounded-2xl border border-indigo-100">
+                    This is a <b>Verified Luxury Profile</b>. To unlock direct WhatsApp contact, you need to pay a one-time verification fee of <b>₹499 (INR)</b>.
+                </p>
+
+                <div class="text-center mb-8"><img src="qrcode.jpg" class="w-48 h-48 mx-auto border-4 border-slate-50 rounded-3xl shadow-xl"></div>
+
+                <div class="space-y-3 mb-8">
+                    <div class="instr-box">
+                        <p class="text-indigo-900 font-black text-xs mb-1">1. SCAN & PAY</p>
+                        <p class="text-[11px] text-slate-500 font-bold">Screenshot the QR code and pay ₹499 via any UPI app like PhonePe, Paytm or Google Pay.</p>
+                    </div>
+                    <div class="instr-box">
+                        <p class="text-indigo-900 font-black text-xs mb-1">2. SEND SCREENSHOT</p>
+                        <p class="text-[11px] text-slate-500 font-bold">After payment, send the screenshot to our coordinator to receive your <b>Activation Code</b>.</p>
+                    </div>
+                    <div class="instr-box">
+                        <p class="text-indigo-900 font-black text-xs mb-1">3. ACTIVATE & MEET</p>
+                        <p class="text-[11px] text-slate-500 font-bold">Enter the code below to instantly redirect to the girl's private WhatsApp for meeting details.</p>
+                    </div>
                 </div>
-                <div class="bg-white p-4 rounded-3xl inline-block mb-8 shadow-xl"><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=7678125700@ybl&am=499&cu=INR" class="w-40 h-40"></div>
-                <div class="flex justify-between items-center bg-slate-900 p-4 rounded-2xl mb-6"><span id="timer-val" class="text-lg font-black text-red-500">02:00</span><span class="text-lg font-black text-amber-500">₹499</span></div>
-                <button onclick="doPay()" class="w-full btn-gold py-4 rounded-xl font-black uppercase text-xs mb-8 italic">Pay Now & Get Mobile No.</button>
-                <div class="pt-6 border-t border-white/10">
-                    <input type="text" id="act-code" placeholder="ENTER ACTIVATION CODE" class="w-full bg-black border border-white/10 p-4 text-center font-black text-lg rounded-xl mb-4 text-white uppercase">
-                    <button onclick="finalRedirect()" class="w-full bg-white text-black py-3 rounded-xl font-black text-[10px] uppercase">Start Meeting</button>
-                </div>
+
+                <button onclick="window.location.href='upi://pay?pa=7678125700@ybl&am=499&cu=INR'" class="w-full bg-indigo-600 text-white py-5 rounded-2xl font-black uppercase text-xs mb-8 shadow-2xl animate-bounce">Pay ₹499 Now</button>
+                
+                <input type="text" id="act-code" placeholder="ENTER ACTIVATION CODE" class="w-full border-4 border-green-500 p-4 text-center font-black rounded-2xl mb-4 text-green-600 text-lg tracking-[0.4em]">
+                <button onclick="finalRedirect()" class="w-full bg-green-600 text-white py-4 rounded-2xl font-black uppercase text-xs shadow-lg">Activate & Meet Now</button>
             </div>
         </div>
     </main>
 
-    <footer class="mt-20 border-t border-white/10 bg-[#020617] py-16 px-6">
-        <div class="max-w-5xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-16 text-center md:text-left">
-                <div>
-                    <h3 class="text-amber-500 font-black uppercase text-xs mb-4">About RealMeet</h3>
-                    <p class="text-[10px] text-slate-500 font-bold leading-relaxed">India's most trusted premium Service since 2021.</p>
-                </div>
-                <div>
-                    <h3 class="text-amber-500 font-black uppercase text-xs mb-4">Trust & Policies</h3>
-                    <ul class="text-[10px] text-slate-500 font-bold space-y-2 uppercase tracking-tight">
-                        <li><i class="fas fa-shield-alt mr-2 text-amber-500"></i> Secure Payment</li>
-                        <li><i class="fas fa-undo mr-2 text-amber-500"></i> 100% Satisfaction</li>
-                        <li><i class="fas fa-user-secret mr-2 text-amber-500"></i> Refund immediately</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-amber-500 font-black uppercase text-xs mb-4">Help & Support</h3>
-                    <p class="text-[10px] text-slate-500 font-bold mb-4 uppercase">Telegram @Xnehhaa</p>
-                    <div class="flex items-center justify-center md:justify-start text-[10px] font-black text-white"><span class="dot"></span> SERVER ONLINE</div>
-                </div>
+    <footer class="mt-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-black italic mb-8">REAL <span class="text-white">MEET</span></h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-[10px] font-black uppercase mb-12 opacity-80">
+                <div class="flex flex-col gap-3"><span>Verified Agency</span><span>Real Photos Only</span><span>Private Meetings</span></div>
+                <div class="flex flex-col gap-3"><span>Safety Rules</span><span>Privacy Policy</span><span>Our Terms</span></div>
+                <div class="flex flex-col gap-3"><span>Customer Care</span><span>Live Video Proof</span><span>City Locations</span></div>
+                <div class="flex flex-col gap-3"><span>Telegram Link</span><span>WhatsApp Join</span><span>Contact Coordinator</span></div>
             </div>
-            <div class="review-container"><div class="review-track" id="review-slider"></div></div>
-            <div class="text-center mt-10">
-                <h2 class="text-2xl font-black italic text-white tracking-tighter">REAL<span class="text-amber-500">MEET</span></h2>
-                <p class="text-[9px] text-slate-700 font-black mt-4 uppercase tracking-[0.4em]">© 2026 REALMEET SERVICE</p>
-            </div>
+            <p class="text-[9px] tracking-[0.5em] opacity-40">© 2026 REAL MEET NETWORK • DISCRETE LUXURY SERVICE</p>
         </div>
     </footer>
 
     <script>
-        const names = ["Ananya", "Sneha", "Priya", "Mehak", "Tanya", "Zoya", "Neha", "Sanya", "Simran", "Muskan", "Kiara", "Tanvi", "Pooja", "Divya", "Roshni", "Deepika", "Shreya", "Aditi", "Manvi", "Palak", "Khushi", "Jhanvi", "Isha", "Ridhi", "Sia", "Tara", "Gauri", "Payal", "Sakshi", "Anjali", "Komal", "Preeti", "Rashmi", "Jyoti", "Kiran", "Sapna", "Alisha", "Barkha", "Damini", "Esha", "Falguni", "Garima", "Hasina", "Indu", "Jaya", "Kajal", "Leela", "Mala", "Naina", "Parul", "Radhika", "Tulsi", "Uma", "Vanya", "Mahi", "Avni", "Shanaya", "Pihu", "Navya", "Gia", "Myisha"];
-        const cities = ["Delhi", "Mumbai", "Pune", "Bangalore", "Noida", "Gurgaon", "Lucknow", "Jaipur", "Ahmedabad", "Surat", "Bhopal", "Indore", "Amritsar", "Patna"];
-        const feed = ["Real girl, genuine.", "Safe and Secure in my city.", "Number mil gaya instantly.", "100% Trusted agency.", "Priya is very beautiful.", "No fraud, best service.", "Photos are 100% real.", "Very professional behavior.", "Fastest support on TG.", "Highly recommended.", "Best experience so far.", "Connection was instant."];
-        const users = ["Rahul", "Amit", "Vikram", "Karan", "Vivek", "Sanjay", "Aman", "Rohan", "Nitin", "Varun", "Abhi", "Deepak"];
-        const spicyMsgs = ["Hey baby, video call pe aao na.. 💋", "Aajao room pe, maza karenge 🔥", "Main akeli hoon abhi, lets meet 😘", "Akele bore ho rhi hoon 😈", "I'm waiting for your video call.. 💋", "Lets do some fun, contact me now"];
+        const names = ["Sneha", "Ananya", "Priya", "Mehak", "Zoya", "Neha", "Sanya", "Simran", "Muskan", "Kiara", "Tanvi", "Pooja", "Divya", "Roshni", "Deepika", "Shreya", "Aditi", "Manvi", "Palak", "Khushi"];
+        const maleNames = ["Rahul", "Amit", "Vikram", "Sameer", "Deepak", "Sandeep", "Arjun", "Rohit", "Vivek", "Sanjay", "Karan", "Abhishek", "Manish", "Sunil"];
+        const cities = ["Delhi", "Mumbai", "Pune", "Bangalore", "Noida", "Gurgaon", "Lucknow", "Jaipur", "Ahmedabad", "Surat", "Patna", "Kolkata", "Bhopal", "Indore", "Amritsar", "Chandigarh"];
+        const reviews = [
+            {n: "Rahul K.", m: "100% real profiles, met Sneha in Delhi."},
+            {n: "Amit Sharma", m: "Very safe and discrete service, thanks."},
+            {n: "Vikram S.", m: "Paid 499 and got WhatsApp instantly."},
+            {n: "Sameer D.", m: "No fraud, genuine meeting experience."},
+            {n: "Deepak R.", m: "Best agency for real meet in India."},
+            {n: "Sandeep V.", m: "Video call proof was real, very happy."},
+            {n: "Arjun P.", m: "Met twice, always 100% genuine girls."},
+            {n: "Rohit Verma", m: "Trusted coordinator and fast response."}
+        ];
+        
+        const girlMsgs = ["Hi, want to meet me? 💋", "I'm available right now! 🔥", "Join WhatsApp for my video..", "Are you in Delhi? I'm free..", "Verified and real photos here!", "Safe and private meet only.."];
 
         let db = [];
-
-        function unlockSite() {
-            init(); // First generate profiles
-            setTimeout(() => {
-                document.getElementById('age-gate').style.display = 'none';
-                show('home');
-                startNotifications();
-            }, 500);
-        }
-
-        function show(id) {
-            document.getElementById('loader').style.display = 'flex';
-            setTimeout(() => {
-                document.querySelectorAll('main').forEach(m => m.classList.add('hidden'));
-                const target = document.getElementById('pg-' + id);
-                if(target) target.classList.remove('hidden');
-                document.getElementById('loader').style.display = 'none';
-                window.scrollTo(0,0);
-            }, 400);
-        }
+        let isPaymentPage = false;
 
         function init() {
-            let picCounter = 1; db = [];
-            cities.forEach(c => {
-                for(let i=0; i<5; i++) {
-                    db.push({
-                        id: db.length + 1,
-                        name: names[db.length % names.length],
-                        age: Math.floor(Math.random() * 5) + 20,
-                        loc: c,
-                        rating: (Math.random() * 0.3 + 4.7).toFixed(1),
-                        desc: "Verified profile. Safe and secure meeting in your city.",
-                        img: `pic${picCounter}.jpg`
-                    });
-                    picCounter++; if(picCounter > 80) picCounter = 1;
-                }
-            });
+            // Logic to populate 80 profiles using pic1.jpg to pic80.jpg
+            for(let i=1; i<=80; i++) {
+                db.push({
+                    id: i,
+                    name: names[(i-1) % names.length],
+                    loc: cities[(i-1) % cities.length],
+                    rating: (Math.random() * 0.4 + 4.5).toFixed(1),
+                    img: `pic${i}.jpg`
+                });
+            }
+            // Optional: Shuffle profiles for a dynamic look
             db.sort(() => Math.random() - 0.5);
-
-            const grid = document.getElementById('grid-container');
-            if(grid) {
-                grid.innerHTML = '';
-                db.forEach(p => {
-                    grid.innerHTML += `
-                    <div class="profile-item luxury-card cursor-pointer" data-city="${p.loc.toLowerCase()}" onclick="openDet(${p.id})">
-                        <div class="img-box"><img src="${p.img}" onerror="this.src='https://via.placeholder.com/400x500?text=${p.name}'"></div>
-                        <div class="p-4 text-center">
-                            <h4 class="font-black text-[11px] text-white uppercase">${p.name}, ${p.age}</h4>
-                            <p class="text-amber-500 text-[8px] font-black uppercase mt-1">${p.loc}</p>
-                        </div>
-                    </div>`;
-                });
-            }
-
-            const slider = document.getElementById('review-slider');
-            if(slider) {
-                slider.innerHTML = '';
-                [...feed, ...feed].forEach((f, idx) => {
-                    slider.innerHTML += `<div class="bg-white/5 border border-white/5 p-6 rounded-2xl min-w-[220px]"><p class="text-[10px] font-bold italic text-slate-400 mb-3">"${f}"</p><p class="text-[9px] font-black text-amber-500 uppercase tracking-widest">— ${users[idx % users.length]}</p></div>`;
-                });
-            }
         }
 
-        function startNotifications() {
+        function validateAge() {
+            if(document.getElementById('check1').checked && document.getElementById('check2').checked) {
+                unlockSite();
+            } else { alert("Please check both boxes to confirm access."); }
+        }
+
+        function unlockSite() {
+            document.getElementById('age-gate').style.display = 'none';
+            const grid = document.getElementById('grid-container');
+            
+            // Render all 80 profiles
+            grid.innerHTML = db.map(p => `
+                <div class="profile-item luxury-card cursor-pointer" data-city="${p.loc.toLowerCase()}" onclick="handleProfileClick(${p.id})">
+                    <div class="h-48 overflow-hidden"><img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/300x400?text=Profile'"></div>
+                    <div class="p-4 text-center">
+                        <h4 class="font-black text-[11px] text-slate-800 uppercase tracking-tight">${p.name}</h4>
+                        <p class="text-indigo-600 text-[9px] font-black uppercase mt-1">${p.loc} • ★ ${p.rating}</p>
+                    </div>
+                </div>`).join('');
+
+            const slider = document.getElementById('review-slider');
+            slider.innerHTML = [...reviews, ...reviews].map(r => `
+                <div class="bg-white border-2 border-indigo-100 p-5 rounded-2xl min-w-[260px] shadow-sm">
+                    <p class="text-[11px] font-bold italic text-indigo-700 mb-3">"${r.m}"</p>
+                    <p class="text-[9px] font-black text-slate-400 uppercase tracking-tighter">— Member: ${r.n}</p>
+                </div>`).join('');
+
+            showPage('home');
+            startPopups();
+        }
+
+        function handleProfileClick(id) {
+            document.getElementById('loader').style.display = 'flex';
+            setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
+                openDet(id);
+            }, 800);
+        }
+
+        function startPopups() {
             setInterval(() => {
-                const p = db[Math.floor(Math.random() * db.length)];
-                const msg = spicyMsgs[Math.floor(Math.random() * spicyMsgs.length)];
                 const el = document.getElementById('notif');
-                document.getElementById('notif-pic').src = p.img;
-                document.getElementById('notif-name').innerText = `${p.name} from ${p.loc}`;
-                document.getElementById('notif-msg').innerText = msg;
+                const img = document.getElementById('notif-img');
+                const title = document.getElementById('notif-title');
+                const body = document.getElementById('notif-body');
+
+                if (isPaymentPage) {
+                    const mName = maleNames[Math.floor(Math.random() * maleNames.length)];
+                    const mCity = cities[Math.floor(Math.random() * cities.length)];
+                    img.style.display = "none";
+                    title.innerText = "WhatsApp Joined!";
+                    body.innerText = `${mName} from ${mCity} just connected.`;
+                } else {
+                    const gName = names[Math.floor(Math.random() * names.length)];
+                    const gMsg = girlMsgs[Math.floor(Math.random() * girlMsgs.length)];
+                    img.style.display = "block";
+                    img.src = `pic${Math.floor(Math.random() * 80) + 1}.jpg`;
+                    title.innerText = gName;
+                    body.innerText = gMsg;
+                }
+
                 el.classList.add('active');
-                setTimeout(() => el.classList.remove('active'), 4000);
-            }, 8000);
+                setTimeout(() => el.classList.remove('active'), 4500);
+            }, 10000);
         }
 
         function openDet(id) {
             const p = db.find(x => x.id === id);
             document.getElementById('det-img').src = p.img;
-            document.getElementById('det-name').innerText = p.name + ", " + p.age;
-            document.getElementById('det-loc').innerText = p.loc + " • VERIFIED";
-            document.getElementById('det-rating').innerText = p.rating;
-            document.getElementById('det-desc').innerText = p.desc;
-            show('detail');
+            document.getElementById('det-name').innerText = p.name + ", 22";
+            document.getElementById('det-loc').innerText = p.loc + " • VERIFIED PREMIUM MEMBER";
+            showPage('detail');
         }
 
         function handleAuth() {
-            const n = document.getElementById('cust-name').value.trim();
-            const p = document.getElementById('cust-phone').value.trim();
-            if(n.length < 3 || !/^\d{10}$/.test(p)) return alert("Enter valid details.");
-            document.getElementById('display-name').innerText = n;
-            document.getElementById('step-auth').classList.add('hidden');
-            document.getElementById('step-pay').classList.remove('hidden');
-            let t = 120;
-            const itv = setInterval(() => {
-                let m = Math.floor(t/60), s = t%60;
-                document.getElementById('timer-val').innerText = (m<10?"0"+m:m)+":"+(s<10?"0"+s:s);
-                if(--t < 0) clearInterval(itv);
-            }, 1000);
+            const n = document.getElementById('cust-name').value;
+            const p = document.getElementById('cust-phone').value;
+            if(n.length < 2) return alert("Please enter your name.");
+            if(p.length < 10 || isNaN(p)) return alert("Please enter a valid 10-digit WhatsApp number.");
+            
+            document.getElementById('loader').style.display = 'flex';
+            setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('display-name').innerText = n;
+                document.getElementById('step-auth').classList.add('hidden');
+                document.getElementById('step-pay').classList.remove('hidden');
+                isPaymentPage = true; 
+            }, 1500);
         }
 
         function filterProfiles() {
@@ -286,12 +313,17 @@
             });
         }
 
-        function doPay() { window.location.href="upi://pay?pa=7678125700@ybl&pn=RealMeet&am=499&cu=INR"; }
+        function showPage(id) {
+            document.querySelectorAll('main').forEach(m => m.classList.add('hidden'));
+            document.getElementById('pg-' + id).classList.remove('hidden');
+            window.scrollTo(0,0);
+        }
 
         function finalRedirect() {
             const c = document.getElementById('act-code').value.trim().toUpperCase();
-            if(c === "RM11" || c === "RM22") { window.location.href = `https://wa.me/917678125700?text=I_have_paid_499_Connect_me_now`; }
-            else { alert("Payment verification pending."); }
+            if(c === "RM11" || c === "RM22") { 
+                window.location.href = `https://wa.me/917678125700?text=I_Paid_499_Connect_Me_Now`; 
+            } else { alert("Invalid Code! Please share payment screenshot with coordinator to get the code."); }
         }
     </script>
 </body>
