@@ -322,4 +322,12 @@
                 const el = document.getElementById('notif');
                 const randomName = names[Math.floor(Math.random()*names.length)];
                 document.getElementById('notif-img').src = `pic${Math.floor(Math.random() * 80) + 1}.jpg`;
-                docume
+                document.getElementById('notif-title').innerText = randomName + " is online";
+                document.getElementById('notif-body').innerText = "Available for meeting now!";
+                el.classList.add('active');
+                setTimeout(() => el.classList.remove('active'), 4000);
+            }, 8000);
+        }
+    </script>
+</body>
+</html>
