@@ -3,267 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RealMeet | Premium Connection Agency</title>
+    <title>Real Meet | VIP Premium service</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f8fafc; color: #0f172a; margin: 0; overflow-x: hidden; }
+
+        /* Gradient Header & Footer */
+        header { 
+            position: fixed; top: 0; width: 100%; z-index: 1000; 
+            background: linear-gradient(135deg, #020617 0%, #1e1b4b 100%); 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+            padding: 15px 0;
+        }
+        footer { 
+            background: linear-gradient(135deg, #020617 0%, #172554 100%); 
+            color: #94a3b8; 
+        }
+
+        /* Location Wizard */
+        #loc-wizard { position: fixed; inset: 0; background: #020617; z-index: 20000; display: flex; align-items: center; justify-content: center; }
+        .wizard-card { background: white; width: 90%; max-width: 360px; border-radius: 30px; padding: 35px 25px; text-align: center; }
+        .select-box { width: 100%; padding: 14px; border-radius: 12px; border: 2px solid #f1f5f9; font-weight: 700; outline: none; margin-bottom: 15px; background: #f8fafc; }
+
+        /* Sleek Profile Cards - Chota aur behtar shape */
+        .profile-card { 
+            background: white; border-radius: 20px; overflow: hidden; 
+            border: 1px solid #f1f5f9; transition: 0.3s; 
+            max-width: 175px; margin: auto;
+        }
+        .img-container { position: relative; height: 190px; overflow: hidden; }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; }
+
+        .verified-badge { position: absolute; top: 8px; right: 8px; background: #3b82f6; color: white; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 8px; border: 1.5px solid white; z-index: 10; }
+        .rating-chip { background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); padding: 2px 7px; border-radius: 6px; font-size: 9px; font-weight: 800; color: #fbbf24; position: absolute; bottom: 8px; left: 8px; display: flex; align-items: center; gap: 3px; }
         
-        :root { --primary: #6366f1; --gold: #fbbf24; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f8fafc; color: #1e293b; min-height: 100vh; margin: 0; padding-top: 80px; }
+        .view-profile-btn { background: #22c55e; color: white; font-weight: 800; font-size: 11px; padding: 10px 0; border-radius: 10px; width: 100%; text-align: center; border: none; cursor: pointer; }
 
-        header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: linear-gradient(135deg, #1e1b4b, #4338ca); border-bottom: 3px solid var(--gold); height: 80px; display: flex; align-items: center; }
-        .promo-bar { background: #ef4444; color: white; overflow: hidden; white-space: nowrap; padding: 6px 0; font-size: 10px; font-weight: 800; text-transform: uppercase; position: fixed; top: 80px; width: 100%; z-index: 999; }
-        .promo-track { display: inline-block; animation: slideContinuous 35s linear infinite; }
-        @keyframes slideContinuous { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+        /* Review Section */
+        .footer-reviews { background: rgba(0,0,0,0.3); padding: 20px 0; overflow: hidden; border-top: 1px solid rgba(255,255,255,0.05); }
+        .review-track { display: inline-block; animation: slideSlow 180s linear infinite; white-space: nowrap; }
+        .rev-card { display: inline-block; background: rgba(255,255,255,0.03); padding: 12px 18px; margin-right: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); }
+        .highlight-text { color: #facc15; font-weight: 700; }
 
-        #loader { position: fixed; inset: 0; background: white; z-index: 100000; display: none; flex-direction: column; align-items: center; justify-content: center; }
-        .spinner { width: 50px; height: 50px; border: 5px solid #ddd; border-top: 5px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        .luxury-card { background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .tg-float { position: fixed; right: 20px; bottom: 30px; background: #0088cc; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; z-index: 9999; box-shadow: 0 8px 20px rgba(0,136,204,0.4); }
-
-        .review-container { overflow: hidden; background: #020617; padding: 30px 0; border-radius: 20px; }
-        .review-track { display: flex; gap: 20px; animation: reviewScroll 45s linear infinite; width: max-content; }
-        .review-card { background: #0f172a; padding: 20px; border-radius: 15px; border-top: 2px solid var(--gold); min-width: 280px; color: white; }
-        @keyframes reviewScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-        .notif-popup { position: fixed; left: -350px; bottom: 100px; background: white; border-left: 5px solid #22c55e; padding: 15px; border-radius: 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 9998; width: 300px; display: flex; align-items: center; gap: 12px; }
-        .notif-popup.active { left: 20px; }
-
-        .instr-step { background: #f1f5f9; padding: 12px; border-radius: 12px; border-left: 4px solid var(--primary); margin-bottom: 10px; font-size: 11px; }
-        footer { background: #020617; color: #94a3b8; padding: 60px 20px; border-top: 4px solid var(--gold); }
+        @keyframes slideSlow { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+        .tele-float { position: fixed; right: 15px; bottom: 20px; background: #229ED9; color: white; width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 999; border: 2px solid white; }
     </style>
 </head>
-<body onload="init()">
+<body onload="initCheck()" class="pt-40">
 
-    <header>
-        <div class="container mx-auto px-5 flex justify-between items-center w-full">
-            <div>
-                <h1 class="text-2xl font-black italic text-white tracking-tighter">REAL <span class="text-yellow-400">MEET</span></h1>
-                <p class="text-[9px] text-yellow-400 font-bold uppercase tracking-widest">Available in your city</p>
+    <div id="loc-wizard" style="display: none;">
+        <div class="wizard-card shadow-2xl">
+            <h1 class="text-2xl font-black italic text-blue-600 mb-1">Real<span class="text-slate-900">Meet</span></h1>
+            <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest mb-8 text-center">Step 2: Select Location</p>
+            <div id="step-state">
+                <select id="stateSelect" class="select-box" onchange="updateCities()"><option value="">SELECT STATE</option></select>
+                <button onclick="goToCities()" id="stateNext" class="w-full bg-slate-900 text-white py-3.5 rounded-xl font-black opacity-30 pointer-events-none">NEXT</button>
             </div>
-            <input type="text" id="citySearch" oninput="filterProfiles()" placeholder="Search City..." class="rounded-full py-2 px-4 text-xs font-bold bg-white/10 text-white border border-white/20 w-32 outline-none">
-        </div>
-    </header>
-
-    <div class="promo-bar"><div class="promo-track">100% VERIFIED PROFILES  •  MEET ON YOUR LOCATION  •  DISCRETE MEETINGS •  24/7 SUPPORT •  100% VERIFIED PROFILES •  SAFE AND SECURE•</div></div>
-
-    <div id="loader"><div class="spinner"></div></div>
-
-    <a href="https://t.me/Xnehhaa" target="_blank" class="tg-float"><i class="fab fa-telegram-plane"></i></a>
-
-    <div id="notif" class="notif-popup">
-        <img id="notif-img" src="" class="w-14 h-14 rounded-full object-cover border-2 border-green-500">
-        <div>
-            <p id="notif-title" class="font-black text-slate-900 text-[12px]"></p>
-            <p id="notif-body" class="text-green-600 font-bold text-[11px] italic"></p>
-            <p id="notif-loc" class="text-slate-400 font-bold text-[9px] uppercase"></p>
+            <div id="step-city" style="display: none;">
+                <select id="citySelect" class="select-box"><option value="">SELECT CITY</option></select>
+                <button onclick="finishLocation()" class="w-full bg-blue-600 text-white py-3.5 rounded-xl font-black">START BROWSING</button>
+            </div>
         </div>
     </div>
 
-    <main id="pg-home" class="container mx-auto px-4 py-16">
-        <div id="grid-container" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6"></div>
-    </main>
+    <div id="age-gate" style="display: none;" class="fixed inset-0 bg-slate-950 z-[30000] flex items-center justify-center">
+        <div class="bg-white p-10 rounded-[35px] text-center max-w-xs w-full mx-4">
+            <h2 class="text-2xl font-black mb-2 italic">Real<span class="text-blue-600">Meet</span></h2>
+            <p class="text-[10px] text-slate-400 mb-8 font-bold uppercase">Adults Only 18+</p>
+            <button onclick="passAge()" class="w-full bg-slate-900 text-white font-bold py-4 rounded-2xl">I AM 18+</button>
+        </div>
+    </div>
 
-    <main id="pg-detail" class="container mx-auto px-4 py-16 hidden">
-        <div class="max-w-md mx-auto luxury-card">
-            <div class="relative h-[480px]">
-                <img id="det-img" src="" class="w-full h-full object-cover">
-                <button onclick="showPage('home')" class="absolute top-4 left-4 w-10 h-10 bg-white rounded-full flex items-center justify-center text-indigo-600 shadow-xl"><i class="fas fa-arrow-left"></i></button>
+    <header id="main-header">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left">
+                <h1 class="text-2xl font-black italic text-white tracking-tighter uppercase">Real<span class="text-blue-500">Meet</span></h1>
+                <p id="live-loc-text" class="text-[9px] font-black text-blue-400 uppercase tracking-widest"></p>
             </div>
-            <div class="p-8">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 id="det-name" class="text-2xl font-black text-slate-900"></h2>
-                    <span id="det-rating" class="bg-yellow-400 text-black px-3 py-1 rounded-full text-xs font-bold"></span>
-                </div>
-                <p id="det-loc" class="text-indigo-600 font-black text-xs uppercase mb-6 tracking-widest"></p>
-                <div class="bg-slate-50 p-5 rounded-2xl mb-6"><p id="det-desc" class="text-xs font-bold text-slate-600 italic leading-relaxed"></p></div>
-                
-                <div class="bg-green-50 p-5 rounded-2xl mb-8 border-l-4 border-green-500">
-                    <p class="text-[11px] font-black text-green-700 uppercase mb-3">WhatsApp Connection Benefits:</p>
-                    <ul class="text-[11px] font-bold text-slate-600 space-y-2">
-                        <li><i class="fas fa-video text-green-500 mr-2"></i> Instant  Call Confirmation & Meet</li>
-                        <li><i class="fas fa-id-card text-blue-500 mr-2"></i> Get Direct Personal Number</li>
-                        <li><i class="fas fa-lock text-red-500 mr-2"></i> 100% Privacy & Discreet Chat</li>
-                    </ul>
-                </div>
-                <button onclick="showPage('checkout')" class="w-full bg-green-500 text-white py-5 rounded-2xl font-black uppercase text-xs shadow-lg">Connect on WhatsApp</button>
+            <div class="w-full md:w-72">
+                <input type="text" id="citySearch" oninput="runSearch()" placeholder="Search area..." class="w-full bg-white/10 border-none rounded-xl px-5 py-2.5 text-xs text-white font-bold outline-none focus:ring-1 focus:ring-blue-500">
             </div>
         </div>
-    </main>
+    </header>
 
-    <main id="pg-checkout" class="container mx-auto px-4 py-16 hidden">
-        <div class="max-w-sm mx-auto luxury-card p-8 border-t-8 border-indigo-600">
-            <div id="step-auth" class="text-center">
-                <h3 class="text-lg font-black mb-8 uppercase">Member Verification</h3>
-                <input type="text" id="cust-name" placeholder="Full Name" class="w-full bg-slate-50 p-4 rounded-xl mb-4 border font-bold outline-none">
-                <input type="tel" id="cust-phone" maxlength="10" placeholder="WhatsApp Number" class="w-full bg-slate-50 p-4 rounded-xl mb-8 border font-bold outline-none">
-                <button onclick="handleAuth()" class="w-full bg-indigo-600 text-white py-4 rounded-xl font-black uppercase text-xs">Verify & Show QR</button>
-            </div>
-
-            <div id="step-pay" class="hidden">
-                <h2 class="text-xl font-black mb-4">Welcome, <span id="display-name" class="text-indigo-600"></span></h2>
-                
-                <div class="mb-6">
-                    <div class="instr-step"><strong>STEP 1:</strong> Scan QR & pay ₹499 for WhatsApp number & Meet.</div>
-                    <div class="instr-step"><strong>STEP 2:</strong> Take screenshot of payment success.</div>
-                    <div class="instr-step"><strong>STEP 3:</strong> Send proof to Telegram & instgram to get Code.</div>
-                    <div class="instr-step"><strong>STEP 4:</strong> Enter code to unlock WhatsApp.</div>
-                </div>
-
-                <div class="text-center mb-6">
-                    <img src="qrcode.jpg" class="w-44 h-44 mx-auto rounded-2xl shadow-lg border-2 border-slate-100">
-                    <p class="text-[9px] font-bold text-slate-400 mt-2">UPI ID: khushipdf@axl</p>
-                </div>
-
-                <button onclick="window.location.href='upi://pay?pa=7678125700@ybl&am=499&cu=INR'" class="w-full bg-indigo-600 text-white py-4 rounded-xl font-black uppercase text-xs mb-6 shadow-lg">Pay ₹499 Now</button>
-                
-                <input type="text" id="act-code" placeholder="ENTER 4-DIGIT CODE" class="w-full border-2 border-green-500 p-4 text-center font-black rounded-xl mb-4 outline-none">
-                <button onclick="finalRedirect()" class="w-full bg-green-600 text-white py-4 rounded-xl font-black uppercase text-xs">Complete  pay  & Unlock WhatsApp Now</button>
-            </div>
-        </div>
+    <main class="max-w-7xl mx-auto px-4 py-10">
+        <div id="grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4"></div>
     </main>
 
     <footer>
-        <div class="container mx-auto">
-            <h4 class="text-yellow-400 font-black text-xs uppercase tracking-widest mb-8 text-center">our customer Feedback</h4>
-            <div class="review-container mb-12">
-                <div class="review-track" id="reviewTrack"></div>
+        <div class="footer-reviews"><div class="review-track" id="reviewTrack"></div></div>
+        <div class="max-w-7xl mx-auto px-8 py-16 grid grid-cols-2 md:grid-cols-4 gap-12">
+            <div class="col-span-2 md:col-span-1">
+                <h1 class="text-2xl font-black italic text-white mb-4">Real<span class="text-blue-500">Meet</span></h1>
+                <p class="text-[12px] opacity-40 leading-relaxed mb-8 italic">Premium Independent VIP Network.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center text-white hover:text-pink-400"><i class="fab fa-instagram"></i></a>
+                    <a href="https://t.me/Xnehhaa" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center text-white hover:text-blue-400"><i class="fab fa-telegram-plane"></i></a>
+                </div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-left">
-                <div><h4 class="text-white font-black mb-4 uppercase">RealMeet service</h4><p class="text-xs opacity-60">Providing discrete premium connections since 2018. Your privacy is our priority.</p></div>
-                <div><h4 class="text-white font-black mb-4 uppercase">Support</h4><p class="text-xs opacity-60">Contact us 24/7 on Telegram or instagram for activation codes or any issues.</p></div>
-                <div><h4 class="text-white font-black mb-4 uppercase">Secure</h4><i class="fas fa-shield-alt text-3xl text-green-500"></i></div>
+            <div>
+                <span class="text-white text-[11px] font-black uppercase mb-6 block opacity-50">Legal</span>
+                <ul class="text-[12px] font-bold space-y-4">
+                    <li>Privacy Policy</li><li>Refund Policy</li><li>Terms</li>
+                </ul>
             </div>
-            <p class="text-[9px] text-center mt-12 opacity-30 tracking-[0.4em]">© 2026 REAL MEET PREMIUM SERVICE</p>
+            <div>
+                <span class="text-white text-[11px] font-black uppercase mb-6 block opacity-50">Support</span>
+                <ul class="text-[12px] font-bold space-y-4">
+                    <li>24/7 Helpline</li><li>Verified Check</li><li>Independent</li>
+                </ul>
+            </div>
+            <div class="bg-white/5 p-6 rounded-2xl border border-white/5">
+                <p class="text-[10px] text-blue-400 font-black mb-2 uppercase italic"><i class="fas fa-shield-alt mr-1"></i> 100% Secure</p>
+                <p class="text-[10px] opacity-30">Encrypted connections only.</p>
+            </div>
         </div>
     </footer>
 
+    <a href="https://t.me/Xnehhaa" class="tele-float"><i class="fab fa-telegram-plane text-xl"></i></a>
+
     <script>
-        const names = ["Sneha", "Ananya", "Priya", "Mehak", "Zoya", "Neha", "Sanya", "Simran", "Muskan", "Kiara", "Tanvi", "Pooja", "Divya", "Roshni", "Deepika", "Shreya", "Aditi", "Manvi", "Palak", "Khushi", "Riya", "Isha", "Kavya", "Sana", "Tanya", "Jhanvi", "Avni", "Mansi", "Ishika", "Gauri"];
-        const cities = ["Delhi", "Mumbai", "Pune", "Bangalore", "Noida", "Gurgaon", "Lucknow", "Jaipur", "Ahmedabad", "Surat", "Patna", "Kolkata", "Bhopal", "Indore", "Amritsar", "Chandigarh"];
-        const descs = [
-            "Sweet and friendly. I love meeting new people and sharing long conversations.",
-            "Professional model profile. 100% original photos and discrete services.",
-            "Available for night meetings in 5-star hotels. Very polite and well-mannered.",
-            "Verified premium member. Looking for decent and respectful clients.",
-            "Direct meeting available. Send 'Hi' for video call verification."
-        ];
-        const clientReviews = [
-            {n: "Rahul", c: "Delhi", m: "100% genuine agency. Met my match within 2 hours."},
-            {n: "Amit", c: "Mumbai", m: "Safe and discrete. The girl was exactly like her photo."},
-            {n: "Vikram", c: "Pune", m: "Best ₹499 spent. The activation was instant after proof."},
-            {n: "Karan", c: "Gurgaon", m: "Highly professional service. Privacy is well maintained."},
-            {n: "Sumit", c: "Noida", m: "Trusted agency. No fake promises, just real work."}
-        ];
-        
-        const meetMessages = [
-            "Just finished a meet in Delhi! ❤️", "Available for a coffee date? ☕", "I am free tonight baby...", "Check my new hot pics on WA 🔥", 
-            "Had a great meeting in Mumbai today.", "Wanna meet at your place?", "Book me for tonight... ❤️", "New profile updated!", 
-            "Video call me for verification.", "Are you looking for a date?", "Waiting for your WhatsApp msg.", "100% real meet guaranteed.",
-            "Discrete and safe meeting.", "Just reached Lucknow city!", "Anyone free in Pune tonight?", "Booking open for Jaipur!",
-            "Had a luxury date yesterday.", "Ready for new connections...", "My photos are 100% real 🔥", "Safe & private meeting available."
-        ];
+        const firstNames = ["Sneha", "Zoya", "Ananya", "Mehak", "Sana", "Ishita", "Priya", "Riya", "Kavya", "Tanya", "Simran", "Nisha", "Pooja", "Kiara", "Muskan", "Aliza", "Ayat", "Jiya", "Aysha", "Sanya", "Kajal", "Preeti", "Soniya"];
+        const lastNames = ["Sharma", "Khan", "Malhotra", "Sheikh", "Verma", "Ahmed", "Kapoor", "Mirza", "Gupta", "Ansari"];
+        const boyNames = ["Rahul", "Amit", "Vikram", "Sahil", "Arjun", "Deepak", "Rohan", "Sandeep", "Zaid", "Aryan", "Ishaan"];
 
-        let db = [];
+        const indiaData = {
+            "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur"],
+            "Bihar": ["Patna", "Gaya", "Muzaffarpur", "Bhagalpur", "Purnia", "Darbhanga", "Arrah", "Begusarai", "Sasaram", "Hajipur", "Siwan", "Motihari"],
+            "Delhi": ["Uttam Nagar", "Rohini", "Dwarka", "Janakpuri", "Saket", "Laxmi Nagar", "Karol Bagh", "Pitampura", "Vasant Kunj", "Paharganj"],
+            "Gujarat": ["Ahmedabad", "Surat", "Vadodara", "Rajkot", "Vesu", "Adajan"],
+            "Haryana": ["Gurgaon", "Faridabad", "Panipat", "Ambala", "Karnal"],
+            "Karnataka": ["Bangalore", "Mysore", "Koramangala", "Indiranagar", "HSR Layout"],
+            "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Thane", "Nashik", "Andheri", "Bandra", "Borivali", "Juhu"],
+            "Punjab": ["Ludhiana", "Amritsar", "Jalandhar", "Patiala", "Mohali", "Zirakpur"],
+            "Rajasthan": ["Jaipur", "Jodhpur", "Udaipur", "Kota", "Ajmer"],
+            "Telangana": ["Hyderabad", "Warangal", "Gachibowli"],
+            "Uttar Pradesh": ["Lucknow", "Noida", "Kanpur", "Agra", "Ghaziabad", "Varanasi", "Meerut", "Prayagraj", "Bareilly"],
+            "West Bengal": ["Kolkata", "Salt Lake", "New Town", "Siliguri"]
+            // (Aap baki states bhi isi format me add kar sakte hain)
+        };
 
-        function init() {
-            // Generate 80 Profiles
-            db = [];
-            for(let i=1; i<=80; i++) {
-                db.push({
-                    id: i,
-                    name: names[Math.floor(Math.random() * names.length)], 
-                    loc: cities[Math.floor(Math.random() * cities.length)],
-                    rating: (4.2 + (Math.random() * 0.7)).toFixed(1), 
-                    img: `pic${(i % 30) + 1}.jpg`,
-                    desc: descs[Math.floor(Math.random() * descs.length)]
-                });
-            }
-            db.sort(() => Math.random() - 0.5);
-            renderUI();
-            renderReviews();
-            startPopups();
+        function initCheck() {
+            if(!localStorage.getItem('agePassed')) document.getElementById('age-gate').style.display = 'flex';
+            else showLocWizard();
         }
 
-        function renderUI() {
-            const grid = document.getElementById('grid-container');
-            grid.innerHTML = db.map(p => `
-                <div class="profile-item luxury-card cursor-pointer" onclick="handleProfileClick(${p.id})" data-city="${p.loc.toLowerCase()}">
-                    <div class="relative h-56">
-                        <img src="${p.img}" class="h-full w-full object-cover">
-                        <div class="absolute top-2 right-2 bg-black/70 text-white text-[10px] px-2 py-0.5 rounded-full font-black">★ ${p.rating}</div>
+        function passAge() {
+            localStorage.setItem('agePassed', 'true');
+            document.getElementById('age-gate').style.display = 'none';
+            showLocWizard();
+        }
+
+        function showLocWizard() {
+            document.getElementById('loc-wizard').style.display = 'flex';
+            const stateSel = document.getElementById('stateSelect');
+            Object.keys(indiaData).sort().forEach(s => stateSel.innerHTML += `<option value="${s}">${s}</option>`);
+        }
+
+        function updateCities() {
+            const s = document.getElementById('stateSelect').value;
+            const btn = document.getElementById('stateNext');
+            const citySel = document.getElementById('citySelect');
+            citySel.innerHTML = '<option value="">SELECT CITY</option>';
+            if(s) {
+                btn.classList.remove('opacity-30', 'pointer-events-none');
+                indiaData[s].sort().forEach(c => citySel.innerHTML += `<option value="${c}">${c}</option>`);
+            }
+        }
+
+        function goToCities() {
+            document.getElementById('step-state').style.display = 'none';
+            document.getElementById('step-city').style.display = 'block';
+        }
+
+        function finishLocation() {
+            const city = document.getElementById('citySelect').value;
+            if(city) {
+                document.getElementById('loc-wizard').style.display = 'none';
+                document.getElementById('live-loc-text').innerText = `Models in ${city} (Verified)`;
+                generateGrid(city);
+            }
+        }
+
+        function generateGrid(selectedCity) {
+            const grid = document.getElementById('grid');
+            let html = ""; let store = [];
+            const state = document.getElementById('stateSelect').value;
+            const areas = indiaData[state];
+
+            for(let i=1; i<=80; i++) {
+                const area = areas[(i - 1) % areas.length];
+                const name = firstNames[Math.floor(Math.random()*firstNames.length)] + " " + lastNames[Math.floor(Math.random()*lastNames.length)];
+                const img = `pic${(i%80)+1}.jpg`;
+                const age = Math.floor(Math.random()*6)+20;
+                const rate = (Math.random()*0.4 + 4.5).toFixed(1);
+                store.push({name, area, img});
+                html += `
+                <div class="profile-card" data-area="${area.toLowerCase()}">
+                    <div class="img-container">
+                        <img src="${img}">
+                        <div class="verified-badge"><i class="fas fa-check"></i></div>
+                        <div class="rating-chip"><i class="fas fa-star"></i> ${rate}</div>
                     </div>
                     <div class="p-3 text-center">
-                        <h4 class="font-black text-[12px] uppercase text-slate-800">${p.name}</h4>
-                        <p class="text-indigo-600 text-[9px] font-black uppercase mt-1 tracking-widest">${p.loc}</p>
+                        <h3 class="text-[11px] font-black text-slate-800">${name}, ${age}</h3>
+                        <p class="text-[9px] text-blue-600 font-black mt-1 uppercase italic">${area}</p>
+                        <button onclick="goToProfile('${name}', '${area}', '${img}', '${age}', '${rate}')" class="view-profile-btn mt-3">VIEW</button>
                     </div>
-                </div>`).join('');
+                </div>`;
+            }
+            grid.innerHTML = html;
+            window.allProfiles = store;
+
+            let revHtml = "";
+            for(let i=0; i<40; i++) {
+                const bName = boyNames[Math.floor(Math.random()*boyNames.length)];
+                const bArea = areas[Math.floor(Math.random()*areas.length)];
+                revHtml += `<div class="rev-card"><p class="text-[10px] text-white font-bold">${bName} from ${bArea}</p><p class="text-[10px] highlight-text mt-1 italic">"Genuine profiles & great service."</p></div>`;
+            }
+            document.getElementById('reviewTrack').innerHTML = revHtml + revHtml;
         }
 
-        function renderReviews() {
-            const track = document.getElementById('reviewTrack');
-            const html = clientReviews.map(r => `
-                <div class="review-card">
-                    <p class="font-black text-xs text-yellow-400 mb-1">${r.n} (${r.c})</p>
-                    <p class="text-[10px] italic">"${r.m}"</p>
-                </div>`).join('');
-            track.innerHTML = html + html + html; 
+        function goToProfile(name, city, img, age, rating) {
+            localStorage.setItem('selectedProfile', JSON.stringify({ name, city, img, age, rating }));
+            window.location.href = 'profile.html';
         }
 
-        function handleProfileClick(id) {
-            document.getElementById('loader').style.display = 'flex';
-            setTimeout(() => {
-                document.getElementById('loader').style.display = 'none';
-                const p = db.find(x => x.id === id);
-                document.getElementById('det-img').src = p.img;
-                document.getElementById('det-name').innerText = p.name;
-                document.getElementById('det-rating').innerText = "★ " + p.rating;
-                document.getElementById('det-loc').innerText = p.loc + " • PREMIUM MEMBER";
-                document.getElementById('det-desc').innerText = `"${p.desc}"`;
-                showPage('detail');
-            }, 600);
-        }
-
-        function showPage(pId) {
-            document.querySelectorAll('main').forEach(m => m.classList.add('hidden'));
-            document.getElementById('pg-' + pId).classList.remove('hidden');
-            window.scrollTo(0,0);
-        }
-
-        function handleAuth() {
-            const n = document.getElementById('cust-name').value;
-            if(n.length < 2) return alert("Enter your name");
-            document.getElementById('display-name').innerText = n;
-            document.getElementById('step-auth').classList.add('hidden');
-            document.getElementById('step-pay').classList.remove('hidden');
-        }
-
-        function finalRedirect() {
-            const c = document.getElementById('act-code').value.trim().toUpperCase();
-            if(c === "RM11") window.location.href = `https://wa.me/917678125700?text=Paid_499`;
-            else if(c === "RM22") window.location.href = `https://wa.me/919354185036?text=Paid_499_RM22`;
-            else alert("Invalid Code! Send screenshot to Telegram for code.");
-        }
-
-        function startPopups() {
-            setInterval(() => {
-                const p = db[Math.floor(Math.random() * db.length)];
-                document.getElementById('notif-img').src = p.img;
-                document.getElementById('notif-title').innerText = p.name + " is Online";
-                document.getElementById('notif-body').innerText = meetMessages[Math.floor(Math.random()*meetMessages.length)];
-                document.getElementById('notif-loc').innerText = "Active in " + p.loc;
-                document.getElementById('notif').classList.add('active');
-                setTimeout(() => document.getElementById('notif').classList.remove('active'), 5000);
-            }, 10000);
-        }
-
-        function filterProfiles() {
+        function runSearch() {
             const val = document.getElementById('citySearch').value.toLowerCase();
-            document.querySelectorAll('.profile-item').forEach(item => {
-                item.style.display = item.dataset.city.includes(val) ? 'block' : 'none';
+            document.querySelectorAll('.profile-card').forEach(card => {
+                card.style.display = card.getAttribute('data-area').includes(val) ? "block" : "none";
             });
         }
     </script>
